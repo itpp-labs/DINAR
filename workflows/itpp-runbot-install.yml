@@ -28,24 +28,23 @@ jobs:
         repository: it-projects-llc/itpp-runbot
         path: itpp-runbot
         ref: ${{ env.ITPP_RUNBOT_VERSION }}
-    - name: Check for initial upload editable files
-      run: |
-        echo "ls" && ls
-        echo "ls itpp-runbot" && ls itpp-runbot
-        echo "ls repo" && ls repo
+    - name: Check for initial version of editable files
+      run: |        
+        mkdir -p repo/.itpp-runbot/image/dependencies/
+        # pip.txt
+        cp -n repo/requirements.txt repo/.itpp-runbot/image/dependencies/pip.txt || true
+        
+        # make addons.yaml from oca_dependencies.txt
+        
+        # other files
         cp -rnT itpp-runbot/editable-files/ repo/
-    - name: Update Docker Workflow
-      run: |
-        SCHEDULE_CRON="$(cat repo/.itpp-runbot/config.yaml | grep image-rebuilding-schedule | awk -F\" '{print $2}')"
-        cp itpp-runbot/workflows/itpp-runbot.yml repo/.github/workflows/
-        sed -i "s/SCHEDULE_CRON/$SCHEDULE_CRON/" repo/.github/workflows/itpp-runbot.yml
     - run: |
         # TODO: move this to the commit action
         echo ${GITHUB_REF}
         BRANCH="${GITHUB_REF:11}"
         echo "::set-env name=BRANCH::$BRANCH"
     - name: Commit changes
-      uses: yelizariev/git-auto-commit-action@custom-repo-path
+      uses: stefanzweifel/git-auto-commit-action@v2.4.0
       with:
         #author_name: Marc Demo (Github Actions)
         #author_email: i18n-bot@it-projects.info
@@ -57,6 +56,21 @@ jobs:
         repository: repo
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - name: Notify Github App
+    - name: Update Docker Image Building Workflow
       run: |
-        [[ "$NOTIFY_APP" = "yes" ]] && echo "TODO curl request" || true
+        SCHEDULE_CRON="$(cat repo/.itpp-runbot/config.yaml | grep image-rebuilding-schedule | awk -F\" '{print $2}')"
+        cp itpp-runbot/workflows/itpp-runbot.yml repo/.github/workflows/
+        sed -i "s/SCHEDULE_CRON/$SCHEDULE_CRON/" repo/.github/workflows/itpp-runbot.yml
+    - name: Commit Workflow
+      uses: yelizariev/git-auto-commit-action@custom-author
+      with:
+        commit_author_name: Marc Demo (Github Actions)
+        commit_author_email: i18n-bot@it-projects.info
+        branch: ${{ env.BRANCH }}
+        commit_message: | 
+          :alien: Update ITPP Runbot files
+
+          > Sent from Github Actions (see .github/workflows/itpp-runbot-install.yml)
+        repository: repo
+        #GITHUB_ACTOR: yelizariev # TMP
+        github_token: ${{ secrets.ITPP_RUNBOT_GITHUB_TOKEN }}
