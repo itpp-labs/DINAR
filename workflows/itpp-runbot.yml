@@ -1,4 +1,4 @@
-name: "ITPP Runbot: Rebuild Images"
+name: "ITPP Runbot: Docker Image Building"
 
 on:
   push:
