@@ -21,22 +21,26 @@ def parse_depfile(depfile):
         deps.append((repo, url, branch, commit))
     return deps
 
+def get_default_url(repo):
+    return = 'https://github.com/OCA/%s.git' % repo
 
-def addons_config(repo, url=None):
+def addons_config(repo, branch=None, url=None):
     # works after merging https://github.com/Tecnativa/doodba/pull/261/files
-    env = ""
+    pattern_line = ""
     if url:
         pattern = '%s/{}.git' % '/'.join(url.split('/')[:-1])
-        env = """
-ENV:
-  DEFAULT_REPO_PATTERN: %s
-        """ % pattern
-
+        pattern_line = "  DEFAULT_REPO_PATTERN: %s" % pattern
+    branch_line = ""
+    if branch:
+        branch_line = "  ODOO_VERSION: %s" branch
     return """
 ---
-%s%s:
+ENV:
+%s
+%s
+%s:
   - "*"
-""" % (env, repo)
+""" % (pattern_line, branch_line, repo)
 
 def repos_config(repo, url, branch, commit):
     if not url.endswith('.git'):
@@ -62,13 +66,11 @@ def deps2configs(deps):
     addons = ''
     repos = ''
     for repo, url, branch, commit in deps:
-        if commit or branch:
+        if commit:
             repos += repos_config(repo, url, branch, commit)
             addons += addons_config(repo)
-        elif url:
-            addons += addons_config(repo, url)
         else:
-            addons += addons_config(repo)
+            addons += addons_config(repo, url, branch)
     return addons, repos
 
 if __name__ == '__main__':
