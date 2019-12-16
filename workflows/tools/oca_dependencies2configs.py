@@ -5,7 +5,6 @@
 # TODO: it doesn't support recursive generation of dependencies
 
 import sys
-import os
 
 
 def parse_depfile(depfile):
@@ -21,10 +20,8 @@ def parse_depfile(depfile):
         deps.append((repo, url, branch, commit))
     return deps
 
-def get_default_url(repo):
-    return = 'https://github.com/OCA/%s.git' % repo
 
-def addons_config(repo, branch=None, url=None):
+def addons_config(repo, url=None, branch=None):
     # works after merging https://github.com/Tecnativa/doodba/pull/261/files
     pattern_line = ""
     if url:
@@ -32,7 +29,7 @@ def addons_config(repo, branch=None, url=None):
         pattern_line = "  DEFAULT_REPO_PATTERN: %s" % pattern
     branch_line = ""
     if branch:
-        branch_line = "  ODOO_VERSION: %s" branch
+        branch_line = "  ODOO_VERSION: %s" % branch
     return """
 ---
 ENV:
@@ -41,6 +38,7 @@ ENV:
 %s:
   - "*"
 """ % (pattern_line, branch_line, repo)
+
 
 def repos_config(repo, url, branch, commit):
     if not url.endswith('.git'):
@@ -62,6 +60,7 @@ def repos_config(repo, url, branch, commit):
     - origin {branch}{commit_line}
 """.format(repo=repo, origin=url, branch=branch, commit_line=commit_line)
 
+
 def deps2configs(deps):
     addons = ''
     repos = ''
@@ -72,6 +71,7 @@ def deps2configs(deps):
         else:
             addons += addons_config(repo, url, branch)
     return addons, repos
+
 
 if __name__ == '__main__':
     depfilename = sys.argv[1]
@@ -85,5 +85,5 @@ if __name__ == '__main__':
             (repos, repos_filename),
     ]:
         if content:
-            with open(filename, 'w+') as f:
+            with open(filename, 'a+') as f:
                 f.write(content)
