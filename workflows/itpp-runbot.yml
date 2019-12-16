@@ -40,11 +40,17 @@ jobs:
         # pip.txt
         cp -n repo/requirements.txt repo/.itpp-runbot/image/dependencies/pip.txt || true
 
-        # make addons.yaml from oca_dependencies.txt
-        test -e repo/oca_dependencies.txt && python itpp-runbot/workflows/tools/oca_dependencies2configs.py repo/oca_dependencies.txt repo/.itpp-runbot/image/src/addons.yaml repo/.itpp-runbot/image/src/repos.yaml
+        # check if oca_dependencies file is not converted to addons.yaml yet
+        ADDONS_YAML=repo/.itpp-runbot/image/src/addons.yaml
+        REPOS_YAML=repo/.itpp-runbot/image/src/repos.yaml
+        RUN_OCA2CONFIGS=$(test -e repo/oca_dependencies.txt && test ! -e $ADDONS_YAML && echo "yes")
 
         # other files
         cp -rnT itpp-runbot/editable-files/ repo/
+
+        # make addons.yaml from oca_dependencies.txt
+        test "$RUN_OCA2CONFIGS" = "yes" && python itpp-runbot/workflows/tools/oca_dependencies2configs.py repo/oca_dependencies.txt $ADDONS_YAML $REPOS_YAML || true
+
     - run: |
         # TODO: move this to the commit action
         echo ${GITHUB_REF}
