@@ -73,7 +73,7 @@ jobs:
       run: |
         REF="${{ github.ref }}"
         BRANCH=${REF##*/}
-        ODOO_VERSION=$BRANCH
+        ODOO_VERSION="$(echo $BRANCH | python itpp-runbot/workflows/tools/branch2odoo_version.py)"
         echo "ODOO_VERSION=$ODOO_VERSION"
         echo "::set-env name=ODOO_VERSION::$ODOO_VERSION"
         echo "::set-env name=GIT_BRANCH::$BRANCH"
