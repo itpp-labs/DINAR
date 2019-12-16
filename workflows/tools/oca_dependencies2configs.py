@@ -32,7 +32,7 @@ def addons_config(repo, url=None, branch=None):
         branch_line = "  ODOO_VERSION: %s" % branch
     return """
 ---
-ENV:
+#ENV: # uncomment once the PR is merged:  https://github.com/it-projects-llc/itpp-runbot/pull/4
 %s
 %s
 %s:
@@ -41,8 +41,14 @@ ENV:
 
 
 def repos_config(repo, url, branch, commit):
+    if not url:
+        url = 'https://github.com/OCA/%s.git' % repo
+
     if not url.endswith('.git'):
         url += '.git'
+
+    if not branch:
+        branch = '$ODOO_VERSION'
 
     commit_line = ""
     if commit:
@@ -65,7 +71,9 @@ def deps2configs(deps):
     addons = ''
     repos = ''
     for repo, url, branch, commit in deps:
-        if commit:
+# uncomment once the PR is merged:  https://github.com/it-projects-llc/itpp-runbot/pull/4
+#        if commit:
+        if commit or branch or url:
             repos += repos_config(repo, url, branch, commit)
             addons += addons_config(repo)
         else:

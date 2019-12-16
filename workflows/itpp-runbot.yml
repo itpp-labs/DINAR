@@ -3,32 +3,80 @@ name: "ITPP Runbot: Docker Image Building"
 on:
   push:
     paths:
-      - "itpp-runbot/**"
+      - ".itpp-runbot/image/**"
       - ".github/workflows/itpp-runbot.yml"
+
+  schedule:
+    - cron: "* 5 * * 0"
 
 jobs:
   rebuild-images:
-
     runs-on: ubuntu-latest
     steps:
-    - name: Dump GitHub context
+    - name: Checkout Repo
+      uses: actions/checkout@v2-beta
+      with:
+        path: repo
+    - name: Get Runbot Version
+      run: |
+        ITPP_RUNBOT_VERSION="$(cat repo/config.yaml | grep itpp-runbot-version | awk '{print $NF}')"
+        # use master by default
+        ITPP_RUNBOT_VERSION="${ITPP_RUNBOT_VERSION:-master}"
+        # see https://help.github.com/en/actions/automating-your-workflow-with-github-actions/development-tools-for-github-actions
+        echo "::set-env name=ITPP_RUNBOT_VERSION::$ITPP_RUNBOT_VERSION"
+
+    - name: Checkout ITPP-Runbot
+      uses: actions/checkout@v2-beta
+      with:
+        repository: it-projects-llc/itpp-runbot
+        path: itpp-runbot
+        ref: ${{ env.ITPP_RUNBOT_VERSION }}
+    - uses: actions/setup-python@v1
+      with:
+        python-version: '3.7.x'
+    - name: Check for initial version of editable files
+      run: |
+        mkdir -p repo/.itpp-runbot/image/dependencies/
+        # pip.txt
+        cp -n repo/requirements.txt repo/.itpp-runbot/image/dependencies/pip.txt || true
+
+        # check if oca_dependencies file is not converted to addons.yaml yet
+        ADDONS_YAML=repo/.itpp-runbot/image/src/addons.yaml
+        REPOS_YAML=repo/.itpp-runbot/image/src/repos.yaml
+        RUN_OCA2CONFIGS=$(test -e repo/oca_dependencies.txt && test ! -e $ADDONS_YAML && echo "yes")
+
+        # other files
+        cp -rnT itpp-runbot/editable-files/ repo/
+
+        # make addons.yaml from oca_dependencies.txt
+        test "$RUN_OCA2CONFIGS" = "yes" && python itpp-runbot/workflows/tools/oca_dependencies2configs.py repo/oca_dependencies.txt $ADDONS_YAML $REPOS_YAML || true
+
+    - run: |
+        # TODO: move this to the commit action
+        echo ${GITHUB_REF}
+        BRANCH="${GITHUB_REF:11}"
+        echo "::set-env name=BRANCH::$BRANCH"
+    - name: Commit changes
+      uses: stefanzweifel/git-auto-commit-action@v2.4.0
+      with:
+        #author_name: Marc Demo (Github Actions)
+        #author_email: i18n-bot@it-projects.info
+        branch: ${{ env.BRANCH }}
+        commit_message: |
+          :alien: Update ITPP Runbot files
+
+          > Sent from Github Actions (see .github/workflows/itpp-runbot-install.yml)
+        repository: repo
       env:
-        GITHUB_CONTEXT: ${{ toJson(github) }}
-      run: echo "$GITHUB_CONTEXT"
-    - uses: actions/checkout@v1
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Compute ODOO_VERSION
       run: |
         REF="${{ github.ref }}"
         BRANCH=${REF##*/}
         ODOO_VERSION=$BRANCH
         echo "ODOO_VERSION=$ODOO_VERSION"
-        # see https://help.github.com/en/actions/automating-your-workflow-with-github-actions/development-tools-for-github-actions
         echo "::set-env name=ODOO_VERSION::$ODOO_VERSION"
         echo "::set-env name=GIT_BRANCH::$BRANCH"
-    - name: Dump env context
-      env:
-        CONTEXT: ${{ toJson(env) }}
-      run: echo "$CONTEXT"
     - name: Build and publish Docker Image
       uses: elgohr/Publish-Docker-Github-Action@master
       env:
