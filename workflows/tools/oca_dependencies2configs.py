@@ -26,18 +26,17 @@ def addons_config(repo, url=None, branch=None):
     pattern_line = ""
     if url:
         pattern = '%s/{}.git' % '/'.join(url.split('/')[:-1])
-        pattern_line = "  DEFAULT_REPO_PATTERN: %s" % pattern
+        pattern_line = "  DEFAULT_REPO_PATTERN: %s\n" % pattern
     branch_line = ""
     if branch:
-        branch_line = "  ODOO_VERSION: %s" % branch
+        branch_line = "  ODOO_VERSION: %s\n" % branch
+    ENV = "ENV:\n" if pattern_line or branch_line else ""
     return """
 ---
-ENV:
-%s
-%s
+%s%s%s
 %s:
   - "*"
-""" % (pattern_line, branch_line, repo)
+""" % (ENV, pattern_line, branch_line, repo)
 
 
 def repos_config(repo, url, branch, commit):
