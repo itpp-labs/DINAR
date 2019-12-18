@@ -34,7 +34,13 @@ def addons_config(repo, url=None, branch=None):
         repo = parts[-1]
         if repo.endswith('.git'):
             repo = repo.split('.git')[0]
-
+    else:
+        # Temporary workaround for it-projects-llc repositories
+        # Should be deleted on making the tool public
+        pattern = 'https://github.com/it-projects-llc/%{}.git' % repo
+        pattern_line = "  DEFAULT_REPO_PATTERN: %s\n" % pattern
+        
+           
     branch_line = ""
     if branch:
         branch_line = "  ODOO_VERSION: %s\n" % branch
