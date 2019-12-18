@@ -25,8 +25,16 @@ def addons_config(repo, url=None, branch=None):
     # works after merging https://github.com/Tecnativa/doodba/pull/261/files
     pattern_line = ""
     if url:
-        pattern = '%s/{}.git' % '/'.join(url.split('/')[:-1])
+        parts = url.split('/')
+        pattern = '%s/{}.git' % '/'.join(parts[:-1])
         pattern_line = "  DEFAULT_REPO_PATTERN: %s\n" % pattern
+
+        # Note: this will not work if the repo name is already occupied
+        # The solution could be moving such repositories to repos.yaml
+        repo = parts[-1]
+        if repo.endswith('.git'):
+            repo = repo.split('.git')[0]
+
     branch_line = ""
     if branch:
         branch_line = "  ODOO_VERSION: %s\n" % branch
