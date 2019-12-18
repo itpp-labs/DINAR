@@ -41,7 +41,9 @@ def addons_config(repo, url=None, branch=None):
 
 def repos_config(repo, url, branch, commit):
     if not url:
-        url = 'https://github.com/OCA/%s.git' % repo
+        # TODO: change to OCA once we make the tool available publicly
+        # url = 'https://github.com/OCA/%s.git' % repo
+        url = 'https://github.com/it-projects-llc/%s.git' % repo
 
     if not url.endswith('.git'):
         url += '.git'
