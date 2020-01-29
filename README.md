@@ -1,20 +1,16 @@
-# ITPP Runbot
+# DINAR
 
-Docker based runbot-like solution for odoo addons repositories.
+**D**inar **I**s **N**ot **A** **R**unbot.
 
-Features:
+DINAR helps you to configure Github Actions to test and preview Odoo addons.
 
-* Allows preview updates
-* Runs tests
-* Provides instructions to reproduce errors locally by using same docker images and volumes
-* Uses Github tools: 
+# Usage
 
-  * *Github Actions* to build docker images
-  * *Github Packages* to store docker images
-
-* Tests in pull-requests are run in private server, cause *Github Actions*'
-  environment doesn't have access to external resources (e.g. to s3 to upload
-  docker volumes). This part of the system is proprietary.
+* Fork this repo
+* set MY_GITHUB_TOKEN in fork's setting. The token must have access to the repos
+* Update repositories list and other settings in config.yml
+* Check Actions tab in the fork
+* In your repositories: send new PR or rebase existing one
 
 # Repository structure
 
