@@ -30,7 +30,7 @@ services:
             DOODBA_ENVIRONMENT: "${DOODBA_ENVIRONMENT-devel}"
             LIST_DB: "true"
             PTVSD_ENABLE: "${DOODBA_PTVSD_ENABLE:-0}"
-            PGDATABASE: &dbname itpp-runbot
+            PGDATABASE: &dbname DINAR
             PYTHONOPTIMIZE: ""
             PYTHONPATH: /opt/odoo/custom/src/odoo
             _PORT: "1025"
