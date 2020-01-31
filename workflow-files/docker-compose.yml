@@ -3,7 +3,7 @@
 version: "2.4"
 services:
     odoo:
-        image: $REGISTRY:$ODOO_IMAGE
+        image: $REGISTRY/$IMAGE_ODOO_BASE
         environment:
             PGDATABASE: &dbname DINAR
             PGUSER: &dbuser "odoo"
@@ -15,6 +15,7 @@ services:
             PYTHONPATH: /opt/odoo/custom/src/odoo
             SMTP_PORT: "1025"
             WITHOUT_DEMO: "${DOODBA_WITHOUT_DEMO-false}"
+            WAIT_DB: "false"
         hostname: "$SMTP_REAL_NON_CANONICAL_DEFAULT"
         tty: true
         depends_on:
@@ -31,5 +32,6 @@ services:
         environment:
             POSTGRES_DB: *dbname
             POSTGRES_USER: *dbuser
+            POSTGRES_PASSWORD: odoopassword
             CONF_EXTRA: |
                 work_mem = 32MB
