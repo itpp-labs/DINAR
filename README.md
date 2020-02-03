@@ -1,6 +1,6 @@
 # DINAR
 
-**D**inar **I**s **N**ot **A** **R**unbot.
+**D**INAR **I**s **N**ot **A** **R**unbot.
 
 DINAR helps you to configure Github Actions to test and preview Odoo addons.
 
@@ -14,9 +14,22 @@ DINAR helps you to configure Github Actions to test and preview Odoo addons.
 
 # Repository structure
 
-* [`.github/workflows/sync.yml`](.github/workflows/sync.yml) -- Github Workflow to install DINAR to your repositories
+* `.github/workflows/':
+
+  * [`DINAR2fork.yml`](.github/workflows/DINAR2fork.yml) -- checks for updates in DINAR and makes PR to your fork
+  * [`fork2repos.yml`](.github/workflows/fork2repos.yml) -- Github Workflow to install forked DINAR to your repositories
 * `static-files/` -- **copy** and **push** to a repo **with overwriting**. Mandatory files to make the system work.
-* `editable-files/` -- **copy** and **push** to a repo **without overwriting**. The files can be modified settings per repository.
+* `editable-files/` -- **copy** and **push** to a repo **without overwriting**. The files can be modified per repository.
 * `embedded-files/` -- **copy** to a repo **without overwriting**. The files used on generating Docker images and normally shall not be modified per repository.
 * `workflow-files/` -- scripts that can be used from workflows without coping.
 * `local-files/` -- files to download to maintainer's machine to work with the dockers locally
+
+# Docker images
+
+DINAR builds and push docker images to Github Packages. Examples for 12.0 branch:
+
+* `dinar-dependencies:12.0` - base odoo image with dependencies: installs packages and fetches repositories. It uses settings from [`.DINAR/image/`](editable-files/.DINAR/image/dependencies/).
+* Odoo and postgres images with preinstalled base modules. It uses `base-addons` settings from [`.DINAR/volumes/addons.yaml`](editable-files/.DINAR/volumes/addons.yaml). 
+
+  * `dinar-odoo:12.0`, `dinar-db:12.0` -- modules are installed with demo data
+  * `dinar-odoo:12.0-nodemo`, `dinar-db:12.0-nodemo` -- modules are installed without demo data 

@@ -16,21 +16,14 @@ services:
             TARGET: odoo
 
     odoo:
-        image: docker.pkg.github.com/yelizariev/addons-yelizariev/itpp-runbot:10.0  # DEV STUFF TO DELETE
-        #image: ODOO  # update before using
-        hostname: "$SMTP_REAL_NON_CANONICAL_DEFAULT"
+        image: docker.pkg.github.com/$REPOSITORY/dinar-odoo:$VERSION
+        hostname: "$SMTP_REAL_NON_CANONICAL_DEFAULT" # TODO
         tty: true
-        labels:
-            traefik.docker.network: "inverseproxy_shared"
-            traefik.enable: "true"
-            traefik.frontend.passHostHeader: "true"
-            traefik.longpolling.port: "8072"
-            traefik.port: "8069"
         environment:
             DOODBA_ENVIRONMENT: "${DOODBA_ENVIRONMENT-devel}"
             LIST_DB: "true"
             PTVSD_ENABLE: "${DOODBA_PTVSD_ENABLE:-0}"
-            PGDATABASE: &dbname itpp-runbot
+            PGDATABASE: &dbname DINAR
             PYTHONOPTIMIZE: ""
             PYTHONPATH: /opt/odoo/custom/src/odoo
             _PORT: "1025"
@@ -40,9 +33,8 @@ services:
             PGUSER: &dbuser "odoo"
             DB_FILTER: ".*"
             PROXY_MODE: "$ODOO_PROXY_MODE"
-        volumes:
-            - filestore:/var/lib/odoo:z
-            - ./pr-files:/opt/odoo/custom/src/private/
+        #volumes:
+        #    - ./pr-files:/opt/odoo/custom/src/private/
 
         depends_on:
             - cdnjs_cloudflare_proxy
@@ -62,7 +54,7 @@ services:
             #- --dev=reload,qweb,werkzeug,xml
 
     db:
-        image: tecnativa/postgres-autoconf:10-alpine
+        image: docker.pkg.github.com/$REPOSITORY/dinar-db:$VERSION
         shm_size: 512mb
         environment:
             POSTGRES_DB: *dbname
