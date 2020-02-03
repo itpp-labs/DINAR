@@ -1,4 +1,4 @@
-#!/bin/bash -ex
+set -ex
 DIR="`dirname \"$0\"`"
 docker-compose -p DINAR -f $DIR/docker-compose.yml config
 docker-compose -p DINAR -f $DIR/docker-compose.yml up -d
