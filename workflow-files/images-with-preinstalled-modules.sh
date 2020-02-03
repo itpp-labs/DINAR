@@ -1,4 +1,6 @@
+#!/bin/bash -ex
 DIR="`dirname \"$0\"`"
+docker-compose -p DINAR -f $DIR/docker-compose.yml config
 docker-compose -p DINAR -f $DIR/docker-compose.yml up -d
 docker-compose -p DINAR -f $DIR/docker-compose.yml exec odoo odoo -i $MODULES --stop-after-init
 docker-compose -p DINAR -f $DIR/docker-compose.yml stop
