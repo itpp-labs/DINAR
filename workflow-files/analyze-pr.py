@@ -49,6 +49,7 @@ def main(base_ref, head_ref):
     set_github_var('PR_UPDATED_MODULES_INSTALLABLE', ','.join(modules.keys()))
 
 def set_github_var(name, value):
+    print ("%s=%s" % (name, value))
     print ("::set-env name=%s::%s" % (name, value))
 
 if __name__ == '__main__':
