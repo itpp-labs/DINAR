@@ -4,6 +4,24 @@ on:
   pull_request:
 
 jobs:
+  pre-commit:
+    name: "pre-commit"
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v2
+      with:
+        path: REPO
+    - uses: actions/setup-python@v1
+      with:
+        python-version: '3.7.x'
+    - name: Check Python Version
+      run: echo "::set-env name=PY::$(python --version --version | sha256sum | cut -d' ' -f1)"
+    - uses: actions/cache@v1
+      with:
+        path: ~/.cache/pre-commit
+        key: pre-commit|${{ env.PY }}|${{ hashFiles('.pre-commit-config.yaml') }}
+    - uses: pre-commit/action@v1.0.1
+
   review:
     name: "Quick Review"
     runs-on: ubuntu-latest
