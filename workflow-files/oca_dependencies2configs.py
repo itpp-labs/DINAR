@@ -37,7 +37,7 @@ def addons_config(repo, url=None, branch=None):
     else:
         # Temporary workaround for it-projects-llc repositories
         # Should be deleted on making the tool public
-        pattern = 'https://github.com/it-projects-llc/%{}.git' % repo
+        pattern = 'https://github.com/it-projects-llc/%s.git' % repo
         pattern_line = "  DEFAULT_REPO_PATTERN: %s\n" % pattern
         
            
