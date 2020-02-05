@@ -17,17 +17,24 @@ FORK_PATH=os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
 
 
-def main(token, config):
+def main(config, bot_token, bot_name, bot_email):
     print("Config:\n")
     print(json.dumps(config, indent=4, sort_keys=True))
+    git["config",
+        "--global", "user.name", bot_name
+    ]
+    git["config",
+        "--global", "user.email", bot_email
+    ]
+
     mkdir["-p", "REPOS"] & FG
     branches = config['branches']
     for repo in config['repos']:
         for br in branches:
-            sync_repo(repo, br, token)
+            sync_repo(repo, br, bot_token)
 
 
-def sync_repo(repo, br, token):
+def sync_repo(repo, br, bot_token):
     repo_path = os.path.join("REPOS", repo)
     repo_owner, repo_name = repo.split('/')
     mkdir["-p", repo_path] & FG
@@ -35,7 +42,7 @@ def sync_repo(repo, br, token):
         cmd(git[
             "clone",
             "--branch", br,
-            "https://%s@github.com/%s/%s.git" % (token, repo_owner, repo_name),
+            "https://%s@github.com/%s/%s.git" % (bot_token, repo_owner, repo_name),
             repo_path  # where to clone
         ])
     else:
@@ -85,8 +92,10 @@ def cmd(command):
 
 
 if __name__ == '__main__':
-    token = sys.argv[1]
-    config_filename= sys.argv[2]
+    config_filename= sys.argv[1]
+    bot_token = sys.argv[2]
+    bot_name = sys.argv[3] or "Github Actions"
+    bot_email = sys.argv[4] or "actions@github.com"
     with open(config_filename) as config_file:
         config = yaml.safe_load(config_file)
-    main(token, config)
+    main(config, bot_token, bot_name, bot_email)
