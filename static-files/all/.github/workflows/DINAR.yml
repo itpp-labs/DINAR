@@ -102,7 +102,7 @@ jobs:
         echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USERNAME" --password-stdin "$REGISTRY"
 
         # convert "base-addons" list to comma-separated list
-        MODULES=$(cat REPO/.DINAR/volumes/addons.yaml | shyaml get-values base-addons | xargs | sed "s/ /,/g")
+        export MODULES=$(cat REPO/.DINAR/volumes/addons.yaml | shyaml get-values base-addons | xargs | sed "s/ /,/g")
         export DB_VERSION=10
         export REPOSITORY=${{ github.repository	}}
 
