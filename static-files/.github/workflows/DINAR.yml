@@ -55,9 +55,9 @@ jobs:
         #author_email: i18n-bot@it-projects.info
         branch: ${{ env.BRANCH }}
         commit_message: |
-          :alien: Update Editable DINAR files
+          :construction_worker_man: Update Editable DINAR files
 
-          > Sent from Github Actions (see .github/workflows/DINAR-install.yml)
+          Pushed from .github/workflows/DINAR.yml
         repository: REPO
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

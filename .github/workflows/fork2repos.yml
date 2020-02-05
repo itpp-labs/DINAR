@@ -1,3 +1,32 @@
+# TODO: add intermediate workflow DINAR2fork for custom stuff
 # TODO: static-files/.github/workflows/DINAR.yml:
 # * use schedule from config.yml
 # * set current revision in step "Checkout DINAR"
+name: "Push forked DINAR to Repos"
+
+on:
+  push:
+    paths:
+      - ".github/workflows/fork2repos.yml"
+      - "static-files/**"
+      - "editable-files/**"
+
+jobs:
+  upload-files:
+
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Fork
+      uses: actions/checkout@v2-beta
+      with:
+        path: FORK
+    - uses: actions/setup-python@v1
+      with:
+        python-version: '3.7.x'
+    - name: Install python tools
+      run: |
+        pip install plumbum
+    - name: Sync Static Files
+      run: |
+        # TODO: use config.yml
+        python FORK/workflow-files/fork2repos.py ${{ secrets.MY_GITHUB_TOKEN }} FORK/config.example.yml
