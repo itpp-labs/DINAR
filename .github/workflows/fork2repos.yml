@@ -1,5 +1,5 @@
 # TODO: add intermediate workflow DINAR2fork for custom stuff
-# TODO: static-files/.github/workflows/DINAR.yml:
+# TODO: static-files/all/.github/workflows/DINAR.yml:
 # * use schedule from config.yml
 # * set current revision in step "Checkout DINAR"
 name: "Push forked DINAR to Repos"
