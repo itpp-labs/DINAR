@@ -20,12 +20,12 @@ FORK_PATH=os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 def main(config, bot_token, bot_name, bot_email):
     print("Config:\n")
     print(json.dumps(config, indent=4, sort_keys=True))
-    git["config",
+    cmd(git["config",
         "--global", "user.name", bot_name
-    ]
-    git["config",
+    ])
+    cmd(git["config",
         "--global", "user.email", bot_email
-    ]
+    ])
 
     mkdir["-p", "REPOS"] & FG
     branches = config['branches']
