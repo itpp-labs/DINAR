@@ -87,7 +87,7 @@ def dir_is_empty(path):
     return len(os.listdir(path)) == 0
 
 def cmd(command):
-    print(colors.green & colors.bold | str(command), file=sys.stderr)
+    print(command, file=sys.stdout)
     command & FG
 
 
