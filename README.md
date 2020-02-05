@@ -24,8 +24,8 @@ DINAR helps you to configure Github Actions to test and preview Odoo addons.
   * [`fork2repos.yml`](.github/workflows/fork2repos.yml) -- Github Workflow to install forked DINAR to your repositories
 * `static-files/` -- **copy** and **push** to a repo **with overwriting**. Mandatory files to make the system work.
 
-  * `all` -- files for any version
-  * `10.0`, `11.0`, etc -- version specific files
+  * `all/` -- files for any version
+  * `10.0/`, `11.0/`, etc -- version specific files
 * `editable-files/` -- **copy** and **push** to a repo **without overwriting**. The files can be modified per repository.
 * `embedded-files/` -- **copy** to a repo **without overwriting**. The files used on generating Docker images and normally shall not be modified per repository.
 * `workflow-files/` -- scripts that can be used from workflows without coping.
