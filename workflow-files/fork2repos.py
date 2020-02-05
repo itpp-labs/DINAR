@@ -5,7 +5,7 @@ import os
 import os.path
 import json
 from plumbum.cmd import git, mkdir, cp
-from plumbum import FG, BG
+from plumbum import FG, BG, colors
 
 
 # TODO: update link to fork
@@ -87,7 +87,7 @@ def dir_is_empty(path):
     return len(os.listdir(path)) == 0
 
 def cmd(command):
-    print(command, file=sys.stderr)
+    print(colors.green & colors.bold | command, file=sys.stderr)
     command & FG
 
 
