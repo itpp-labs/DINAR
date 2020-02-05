@@ -35,9 +35,10 @@ def addons_config(repo, url=None, branch=None):
         if repo.endswith('.git'):
             repo = repo.split('.git')[0]
     else:
+        # TODO
         # Temporary workaround for it-projects-llc repositories
         # Should be deleted on making the tool public
-        pattern = 'https://github.com/it-projects-llc/%s.git' % repo
+        pattern = 'https://github.com/it-projects-llc/{}.git'
         pattern_line = "  DEFAULT_REPO_PATTERN: %s\n" % pattern
         
            
