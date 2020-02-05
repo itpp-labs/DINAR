@@ -1,5 +1,5 @@
 # This docker-compose.yml is used to create odoo and db containers with base modules installed
-# See static-files/.github/workflows/DINAR.yml
+# See static-files/all/.github/workflows/DINAR.yml
 version: "2.4"
 services:
     odoo:

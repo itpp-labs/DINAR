@@ -60,7 +60,12 @@ def sync_repo(repo, br, bot_token):
     static_files_path = os.path.join(FORK_PATH, "static-files")
     cmd(cp[
         "-rTv",
-        static_files_path,
+        os.path.join(static_files_path, "all"),
+        repo_path
+    ])
+    cmd(cp[
+        "-rTv",
+        os.path.join(static_files_path, br),
         repo_path
     ])
     cmd(git[
