@@ -87,8 +87,8 @@ def dir_is_empty(path):
     return len(os.listdir(path)) == 0
 
 def cmd(command):
-    print(command, file=sys.stdout)
-    command & FG
+    print(command)
+    print(command())
 
 
 if __name__ == '__main__':
