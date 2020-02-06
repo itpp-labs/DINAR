@@ -51,6 +51,7 @@ services:
             - --limit-time-real-cron=9999999
             - --limit-time-real=9999999
             - --workers=0
+            - --init=$MODULES
             #- --dev=reload,qweb,werkzeug,xml
 
     db:
