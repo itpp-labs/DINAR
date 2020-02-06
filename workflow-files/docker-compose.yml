@@ -15,7 +15,7 @@ services:
             PYTHONPATH: /opt/odoo/custom/src/odoo
             SMTP_PORT: "1025"
             WITHOUT_DEMO: "${DOODBA_WITHOUT_DEMO-false}"
-            WAIT_DB: "false"
+            WAIT_DB: "true"
         hostname: "$SMTP_REAL_NON_CANONICAL_DEFAULT"
         tty: true
         depends_on:
