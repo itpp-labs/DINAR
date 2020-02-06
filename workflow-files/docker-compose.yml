@@ -26,6 +26,8 @@ services:
             - --limit-time-real-cron=9999999
             - --limit-time-real=9999999
             - --workers=0
+            - --init=$MODULES
+            - --stop-after-init
     db:
         image: itpp/postgres-autoconf:${DB_VERSION}-alpine
         shm_size: 512mb
