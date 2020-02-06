@@ -2,6 +2,8 @@ set -ex
 DIR="`dirname \"$0\"`"
 docker-compose -p DINAR -f $DIR/docker-compose.yml config
 docker-compose -p DINAR -f $DIR/docker-compose.yml up -d
+# this fixes the input device is not a TTY .. see https://github.com/docker/compose/issues/5696
+export COMPOSE_INTERACTIVE_NO_CLI=1
 docker-compose -p DINAR -f $DIR/docker-compose.yml exec odoo odoo -i $MODULES --stop-after-init
 docker-compose -p DINAR -f $DIR/docker-compose.yml stop
 
