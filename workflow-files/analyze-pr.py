@@ -9,13 +9,12 @@ MANIFESTS=[
     "__openerp__.py"
 ]
 
-def main(base_ref, head_ref):
+def main(base_ref):
     git["fetch", "origin", base_ref] & FG
-    git["fetch", "origin", head_ref] & FG
     changed_files = git(
         "diff",
         "--name-only",
-        "%s...%s" % (base_ref, head_ref)
+        "%s...HEAD" % base_ref
     ).split("\n")
     changed_files = filter(None, changed_files)
 
@@ -55,5 +54,4 @@ def set_github_var(name, value):
 if __name__ == '__main__':
     print (sys.argv)
     base_ref = sys.argv[1]
-    head_ref = sys.argv[2]
-    main(base_ref, head_ref)
+    main(base_ref)
