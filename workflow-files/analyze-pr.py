@@ -10,8 +10,8 @@ MANIFESTS=[
 ]
 
 def main(base_url, base_branch):
-    git["remote", "add", "upstream", base_branch] & FG
-    git["fetch", "upstream", base_branch] & FG
+    cmd(git["remote", "add", "upstream", base_branch])
+    cmd(git["fetch", "upstream", base_branch])
     changed_files = git(
         "diff",
         "--name-only",
@@ -48,6 +48,10 @@ def main(base_url, base_branch):
     # TODO: filter installable modules
     set_github_var('PR_UPDATED_MODULES_INSTALLABLE', ','.join(modules.keys()))
 
+def cmd(command):
+    print(command)
+    print(command())
+    
 def set_github_var(name, value):
     print ("%s=%s" % (name, value))
     print ("::set-env name=%s::%s" % (name, value))
