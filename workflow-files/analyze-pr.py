@@ -3,21 +3,18 @@ import sys
 import os.path
 from plumbum.cmd import git, cat
 from plumbum import FG, BG
+from github import Github
 
 MANIFESTS=[
     "__manifest__.py",
     "__openerp__.py"
 ]
 
-def main(base_url, base_branch):
-    cmd(git["remote", "add", "upstream", base_branch])
-    cmd(git["fetch", "upstream", base_branch])
-    changed_files = git(
-        "diff",
-        "--name-only",
-        "upstream/%s...HEAD" % base_branch
-    ).split("\n")
-    changed_files = filter(None, changed_files)
+def main(token, repository, pull_number):
+    github = Github(token)
+    repo = github.get_repo(repository)
+    pr = repo.get_pull(int(pull_number))
+    changed_files = [f.filename for f in pr.get_files()]
 
     modules = {}
     other_folders = {}
@@ -58,6 +55,7 @@ def set_github_var(name, value):
 
 if __name__ == '__main__':
     print (sys.argv)
-    base_url = sys.argv[1]
-    base_branch = sys.argv[2]
-    main(base_url, base_branch)
+    token = sys.argv[1]
+    repository = sys.argv[2]
+    pull_number = sys.argv[3]
+    main(token, repository, pull_number)
