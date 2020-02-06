@@ -63,8 +63,6 @@ services:
             POSTGRES_PASSWORD: odoopassword
             CONF_EXTRA: |
                 work_mem = 32MB
-        volumes:
-            - db:/var/lib/postgresql/data:z
 
     smtp:
         image: mailhog/mailhog
@@ -141,6 +139,3 @@ networks:
         internal: true
     public:
 
-volumes:
-    filestore:
-    db:
