@@ -13,3 +13,4 @@ docker commit $(docker inspect --format="{{.Id}}" dinar_odoo_1) $REGISTRY/$IMAGE
 docker push $REGISTRY/$IMAGE_DB
 docker push $REGISTRY/$IMAGE_ODOO
 
+docker-compose -p DINAR -f $DIR/docker-compose.yml down
