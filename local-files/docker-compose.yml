@@ -1,24 +1,13 @@
 version: "2.4"
 
 services:
-    odoo_proxy:
-        image: tecnativa/whitelist
-        depends_on:
-            - odoo
-        networks: &public
-            default:
-            public:
-        ports:
-            - "127.0.0.1:6899:6899"
-            - "127.0.0.1:8069:8069"
-        environment:
-            PORT: "6899 8069"
-            TARGET: odoo
-
     odoo:
         image: $REGISTRY/$REPOSITORY/dinar-odoo:$VERSION
         hostname: "$SMTP_REAL_NON_CANONICAL_DEFAULT" # TODO
         tty: true
+        ports:
+            - "127.0.0.1:6899:6899"
+            - "127.0.0.1:8069:8069"
         environment:
             DOODBA_ENVIRONMENT: "${DOODBA_ENVIRONMENT-devel}"
             LIST_DB: "true"
@@ -26,7 +15,7 @@ services:
             PGDATABASE: &dbname DINAR
             PYTHONOPTIMIZE: ""
             PYTHONPATH: /opt/odoo/custom/src/odoo
-            _PORT: "1025"
+            SMTP_PORT: "1025"
             # To avoid installing demo data export DOODBA_WITHOUT_DEMO=all
             WITHOUT_DEMO: "${DOODBA_WITHOUT_DEMO-false}"
             EMAIL_FROM: "$SMTP_DEFAULT_FROM"
@@ -77,65 +66,3 @@ services:
             - "127.0.0.1:1984:1984"
         # HACK https://github.com/Kozea/wdb/issues/136
         stop_signal: KILL
-
-    # Whitelist outgoing traffic for tests, reports, etc.
-    cdnjs_cloudflare_proxy:
-        image: tecnativa/whitelist
-        networks:
-            default:
-                aliases:
-                    - cdnjs.cloudflare.com
-            public:
-        environment:
-            TARGET: cdnjs.cloudflare.com
-            PRE_RESOLVE: 1
-
-    fonts_googleapis_proxy:
-        image: tecnativa/whitelist
-        networks:
-            default:
-                aliases:
-                    - fonts.googleapis.com
-            public:
-        environment:
-            TARGET: fonts.googleapis.com
-            PRE_RESOLVE: 1
-
-    fonts_gstatic_proxy:
-        image: tecnativa/whitelist
-        networks:
-            default:
-                aliases:
-                    - fonts.gstatic.com
-            public:
-        environment:
-            TARGET: fonts.gstatic.com
-            PRE_RESOLVE: 1
-
-    google_proxy:
-        image: tecnativa/whitelist
-        networks:
-            default:
-                aliases:
-                    - www.google.com
-            public:
-        environment:
-            TARGET: www.google.com
-            PRE_RESOLVE: 1
-
-    gravatar_proxy:
-        image: tecnativa/whitelist
-        networks:
-            default:
-                aliases:
-                    - www.gravatar.com
-            public:
-        environment:
-            TARGET: www.gravatar.com
-            PRE_RESOLVE: 1
-
-networks:
-    default:
-        internal: true
-    public:
-
