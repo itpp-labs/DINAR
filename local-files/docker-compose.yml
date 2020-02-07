@@ -26,12 +26,7 @@ services:
             - ./pr-files:/opt/odoo/custom/src/private/
 
         depends_on:
-            - cdnjs_cloudflare_proxy
             - db
-            - fonts_googleapis_proxy
-            - fonts_gstatic_proxy
-            - google_proxy
-            - gravatar_proxy
             - smtp
             - wdb
         command:
