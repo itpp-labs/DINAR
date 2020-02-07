@@ -14,6 +14,10 @@ DINAR helps you to configure Github Actions to test and preview Odoo addons.
   * `BOT_EMAIL` -- Optional. Default `actions@github.com`
 * Make `config.yml` file to list repositories and set other settings. See [`config.example.yml`](config.example.yml) for details.
 * Check Actions tab in the fork
+* In your repositories: set secrets:
+
+  * `DINAR_TOKEN` -- with access `write:packages`, `read:packages`
+
 * In your repositories: send new PR or rebase existing one
 
 # Repository structure
