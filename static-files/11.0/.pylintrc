@@ -8,7 +8,7 @@ manifest_required_authors=IT-Projects Labs
 manifest_required_keys=license
 manifest_deprecated_keys=description,active
 license_allowed=AGPL-3,GPL-2,GPL-2 or any later version,GPL-3,GPL-3 or any later version,LGPL-3,MIT,OPL-1
-valid_odoo_versions=13.0
+valid_odoo_versions=11.0
 
 [MESSAGES CONTROL]
 disable=all
@@ -21,7 +21,7 @@ disable=all
 # config as a blocking check.
 
 enable=anomalous-backslash-in-string,
-    api-one-deprecated,
+    #api-one-deprecated,
     api-one-multi-together,
     assignment-from-none,
     attribute-deprecated,
