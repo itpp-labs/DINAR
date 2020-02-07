@@ -1,14 +1,12 @@
 import ast
-import sys
 import os.path
-from plumbum.cmd import git, cat
-from plumbum import FG, BG
-from github import Github
+import sys
 
-MANIFESTS=[
-    "__manifest__.py",
-    "__openerp__.py"
-]
+from github import Github
+from plumbum.cmd import cat
+
+MANIFESTS = ["__manifest__.py", "__openerp__.py"]
+
 
 def main(token, repository, pull_number):
     github = Github(token)
@@ -20,41 +18,40 @@ def main(token, repository, pull_number):
     other_folders = {}
     root_files = []
     for f in changed_files:
-        if '/' not in f:
+        if "/" not in f:
             root_files.append(f)
             continue
-        module_name = f.split('/')[0]
+        module_name = f.split("/")[0]
         for manifest in MANIFESTS:
             manifest_path = os.path.join(module_name, manifest)
             if not os.path.exists(manifest_path):
                 continue
             try:
-                manifest_data = ast.literal_eval()
-            except:
-                manifest_data = {
-                    "error": "cannot parse"
-                }
-            modules[module_name] = {
-                "manifest": cat(manifest_path)
-            }
+                manifest_data = ast.literal_eval(cat(manifest_path))
+            except Exception:
+                manifest_data = {"error": "cannot parse"}
+            modules[module_name] = {"manifest": manifest_data}
             break
         else:
             other_folders.setdefault(module_name, [])
             other_folders[module_name].append(f)
 
     # TODO: filter installable modules
-    set_github_var('PR_UPDATED_MODULES_INSTALLABLE', ','.join(modules.keys()))
+    set_github_var("PR_UPDATED_MODULES_INSTALLABLE", ",".join(modules.keys()))
+
 
 def cmd(command):
     print(command)
     print(command())
-    
-def set_github_var(name, value):
-    print ("%s=%s" % (name, value))
-    print ("::set-env name=%s::%s" % (name, value))
 
-if __name__ == '__main__':
-    print (sys.argv)
+
+def set_github_var(name, value):
+    print("{}={}".format(name, value))
+    print("::set-env name={}::{}".format(name, value))
+
+
+if __name__ == "__main__":
+    print(sys.argv)
     token = sys.argv[1]
     repository = sys.argv[2]
     pull_number = sys.argv[3]

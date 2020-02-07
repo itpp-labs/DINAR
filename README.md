@@ -7,7 +7,7 @@ DINAR helps you to configure Github Actions to test and preview Odoo addons.
 # Usage
 
 * Fork this repo
-* [Set secrets](https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets#creating-encrypted-secrets) 
+* [Set secrets](https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets#creating-encrypted-secrets)
 
   * `BOT_TOKEN` -- [github token](https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line) with push access to the repos
   * `BOT_NAME` -- Optional. Default `Github Actions`
@@ -40,7 +40,7 @@ DINAR helps you to configure Github Actions to test and preview Odoo addons.
 DINAR builds and push docker images to Github Packages. Examples for 12.0 branch:
 
 * `dinar-dependencies:12.0` - base odoo image with dependencies: installs packages and fetches repositories. It uses settings from [`.DINAR/image/`](editable-files/.DINAR/image/dependencies/).
-* Odoo and postgres images with preinstalled base modules. It uses `base-addons` settings from [`.DINAR/volumes/addons.yaml`](editable-files/.DINAR/volumes/addons.yaml). 
+* Odoo and postgres images with preinstalled base modules. It uses `base-addons` settings from [`.DINAR/volumes/addons.yaml`](editable-files/.DINAR/volumes/addons.yaml).
 
   * `dinar-odoo:12.0`, `dinar-db:12.0` -- modules are installed with demo data
-  * `dinar-odoo:12.0-nodemo`, `dinar-db:12.0-nodemo` -- modules are installed without demo data 
+  * `dinar-odoo:12.0-nodemo`, `dinar-db:12.0-nodemo` -- modules are installed without demo data
