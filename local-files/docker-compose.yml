@@ -55,13 +55,11 @@ services:
 
     smtp:
         image: mailhog/mailhog
-        networks: *public
         ports:
             - "127.0.0.1:8025:8025"
 
     wdb:
         image: kozea/wdb
-        networks: *public
         ports:
             - "127.0.0.1:1984:1984"
         # HACK https://github.com/Kozea/wdb/issues/136
