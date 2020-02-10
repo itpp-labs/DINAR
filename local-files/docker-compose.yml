@@ -2,7 +2,7 @@ version: "2.4"
 
 services:
     odoo:
-        image: $REGISTRY/$REPOSITORY/dinar-odoo-$VERSION-${REPOSITORY##*/}
+        image: $REGISTRY/$REPOSITORY/dinar-odoo-$REPO_NAME:$VERSION
         hostname: "$SMTP_REAL_NON_CANONICAL_DEFAULT" # TODO
         tty: true
         ports:
@@ -39,7 +39,7 @@ services:
             #- --dev=reload,qweb,werkzeug,xml
 
     db:
-        image: $REGISTRY/$REPOSITORY/dinar-db-$VERSION-${REPOSITORY##*/}
+        image: $REGISTRY/$REPOSITORY/dinar-db-$REPO_NAME:$VERSION
         shm_size: 512mb
         environment:
             POSTGRES_DB: *dbname
