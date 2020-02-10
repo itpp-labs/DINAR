@@ -27,7 +27,7 @@ jobs:
     - name: Install python tools
       run: |
         pip install plumbum pyyaml
-    - name: Sync Static Files
+    - name: Sync DINAR files
       run: |
         # TODO: use config.yml
         python FORK/workflow-files/fork2repos.py FORK/config.example.yml "${{ secrets.BOT_TOKEN }}" "${{ secrets.BOT_NAME }}" "${{ secrets.BOT_EMAIL }}"

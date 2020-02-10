@@ -100,10 +100,7 @@ def deps2configs(deps):
     return addons, repos
 
 
-if __name__ == "__main__":
-    depfilename = sys.argv[1]
-    addons_filename = sys.argv[2]
-    repos_filename = sys.argv[3]
+def main(depfilename, addons_filename, repos_filename):
     with open(depfilename) as depfile:
         deps = parse_depfile(depfile)
     addons, repos = deps2configs(deps)
@@ -111,3 +108,10 @@ if __name__ == "__main__":
         if content:
             with open(filename, "a+") as f:
                 f.write(content)
+
+
+if __name__ == "__main__":
+    depfilename = sys.argv[1]
+    addons_filename = sys.argv[2]
+    repos_filename = sys.argv[3]
+    main(depfilename, addons_filename, repos_filename)
