@@ -98,12 +98,12 @@ def dir_is_empty(path):
 
 
 def cmd(command, ignore_errors=False):
+    print(command)
     try:
-        print(command)
+        print(command())
     except Exception:
         if not ignore_errors:
             raise
-    print(command())
 
 
 if __name__ == "__main__":
