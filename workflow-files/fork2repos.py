@@ -4,6 +4,7 @@ import os.path
 import sys
 
 import yaml
+# TODO: make a python package, say dinarlib, to use local imports
 from oca_dependencies2configs import main as oca_deps2configs
 from plumbum import FG
 from plumbum.cmd import cp, git, mkdir
@@ -66,7 +67,8 @@ def sync_repo(repo, br, bot_token):
             "-n",
             os.path.join(repo_path, "requirements.txt"),
             os.path.join(repo_path, ".DINAR/image/dependencies/pip.txt"),
-        ]
+        ],
+        ignore_errors=True
     )
     # check if oca_dependencies file is not converted to addons.yaml yet
     oca_dependencies_txt = os.path.join(repo_path, "oca_dependencies.txt")
@@ -95,8 +97,12 @@ def dir_is_empty(path):
     return len(os.listdir(path)) == 0
 
 
-def cmd(command):
-    print(command)
+def cmd(command, ignore_errors=False):
+    try:
+        print(command)
+    except Exception:
+        if not ignore_errors:
+            raise
     print(command())
 
 
