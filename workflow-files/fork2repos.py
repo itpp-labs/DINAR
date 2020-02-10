@@ -4,10 +4,9 @@ import os.path
 import sys
 
 import yaml
+from oca_dependencies2configs import main as oca_deps2configs
 from plumbum import FG
 from plumbum.cmd import cp, git, mkdir
-
-from .oca_dependencies2configs import main as oca_deps2configs
 
 # TODO: update link to fork
 COMMIT_MESSAGE = """:construction_worker_man: sync DINAR
