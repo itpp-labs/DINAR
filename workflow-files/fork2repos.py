@@ -68,7 +68,7 @@ def sync_repo(repo, br, bot_token):
             os.path.join(repo_path, "requirements.txt"),
             os.path.join(repo_path, ".DINAR/image/dependencies/pip.txt"),
         ],
-        ignore_errors=True
+        ignore_errors=True,
     )
     # check if oca_dependencies file is not converted to addons.yaml yet
     oca_dependencies_txt = os.path.join(repo_path, "oca_dependencies.txt")
