@@ -14,20 +14,19 @@ on:
 
 jobs:
   upload-files:
-
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout Fork
-      uses: actions/checkout@v2-beta
-      with:
-        path: FORK
-    - uses: actions/setup-python@v1
-      with:
-        python-version: '3.7.x'
-    - name: Install python tools
-      run: |
-        pip install plumbum pyyaml
-    - name: Sync DINAR files
-      run: |
-        # TODO: use config.yml
-        python FORK/workflow-files/fork2repos.py FORK/config.example.yml "${{ secrets.BOT_TOKEN }}" "${{ secrets.BOT_NAME }}" "${{ secrets.BOT_EMAIL }}"
+      - name: Checkout Fork
+        uses: actions/checkout@v2-beta
+        with:
+          path: FORK
+      - uses: actions/setup-python@v1
+        with:
+          python-version: "3.7.x"
+      - name: Install python tools
+        run: |
+          pip install plumbum pyyaml
+      - name: Sync DINAR files
+        run: |
+          # TODO: use config.yml
+          python FORK/workflow-files/fork2repos.py FORK/config.example.yml "${{ secrets.BOT_TOKEN }}" "${{ secrets.BOT_NAME }}" "${{ secrets.BOT_EMAIL }}"
