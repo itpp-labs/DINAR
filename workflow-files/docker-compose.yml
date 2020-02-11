@@ -2,38 +2,38 @@
 # See static-files/all/.github/workflows/DINAR.yml
 version: "2.4"
 services:
-    odoo:
-        image: $REGISTRY/$IMAGE_ODOO_BASE
-        environment:
-            PGDATABASE: &dbname DINAR
-            PGUSER: &dbuser "odoo"
-            DB_FILTER: ".*"
-            PROXY_MODE: "$ODOO_PROXY_MODE"
-            LIST_DB: "true"
-            PTVSD_ENABLE: "${DOODBA_PTVSD_ENABLE:-0}"
-            PYTHONOPTIMIZE: ""
-            PYTHONPATH: /opt/odoo/custom/src/odoo
-            SMTP_PORT: "1025"
-            WITHOUT_DEMO: "${DOODBA_WITHOUT_DEMO-false}"
-            WAIT_DB: "true"
-        hostname: "$SMTP_REAL_NON_CANONICAL_DEFAULT"
-        tty: true
-        depends_on:
-            - db
-        command:
-            - odoo
-            - --limit-memory-soft=0
-            - --limit-time-real-cron=9999999
-            - --limit-time-real=9999999
-            - --workers=0
-            - --init=$MODULES
-            - --stop-after-init
-    db:
-        image: itpp/postgres-autoconf:${DB_VERSION}-alpine
-        shm_size: 512mb
-        environment:
-            POSTGRES_DB: *dbname
-            POSTGRES_USER: *dbuser
-            POSTGRES_PASSWORD: odoopassword
-            CONF_EXTRA: |
-                work_mem = 32MB
+  odoo:
+    image: $REGISTRY/$IMAGE_ODOO_BASE
+    environment:
+      PGDATABASE: &dbname DINAR
+      PGUSER: &dbuser "odoo"
+      DB_FILTER: ".*"
+      PROXY_MODE: "$ODOO_PROXY_MODE"
+      LIST_DB: "true"
+      PTVSD_ENABLE: "${DOODBA_PTVSD_ENABLE:-0}"
+      PYTHONOPTIMIZE: ""
+      PYTHONPATH: /opt/odoo/custom/src/odoo
+      SMTP_PORT: "1025"
+      WITHOUT_DEMO: "${DOODBA_WITHOUT_DEMO-false}"
+      WAIT_DB: "true"
+    hostname: "$SMTP_REAL_NON_CANONICAL_DEFAULT"
+    tty: true
+    depends_on:
+      - db
+    command:
+      - odoo
+      - --limit-memory-soft=0
+      - --limit-time-real-cron=9999999
+      - --limit-time-real=9999999
+      - --workers=0
+      - --init=$MODULES
+      - --stop-after-init
+  db:
+    image: itpp/postgres-autoconf:${DB_VERSION}-alpine
+    shm_size: 512mb
+    environment:
+      POSTGRES_DB: *dbname
+      POSTGRES_USER: *dbuser
+      POSTGRES_PASSWORD: odoopassword
+      CONF_EXTRA: |
+        work_mem = 32MB
