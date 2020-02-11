@@ -4,8 +4,9 @@ import os.path
 import sys
 
 import yaml
-# TODO: make a python package, say dinarlib, to use local imports
-from oca_dependencies2configs import main as oca_deps2configs
+from oca_dependencies2configs import (  # TODO: make a python package, say dinarlib, to use local imports
+    main as oca_deps2configs,
+)
 from plumbum import FG
 from plumbum.cmd import cp, git, mkdir
 
