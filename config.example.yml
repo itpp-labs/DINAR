@@ -1,7 +1,3 @@
-# Default value for schedule in .github/workflows/DINAR.yml
-# POSIX cron syntax. See https://help.github.com/en/actions/automating-your-workflow-with-github-actions/events-that-trigger-workflows#scheduled-events-schedule
-image-rebuilding-schedule: "5 5 * * 0"
-
 branches:
   - "10.0"
   - "11.0"
