@@ -12,16 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 set -ex
-DIR="`dirname \"$0\"`"
-IMAGE_DB=$1
-IMAGE_ODOO=$2
-docker-compose -p DINAR -f $DIR/docker-compose-DINAR.yml config
-docker-compose -p DINAR -f $DIR/docker-compose-DINAR.yml up --abort-on-container-exit
+SHARE=$1
+mkdir -p $SHARE
 
-docker commit $(docker inspect --format="{{.Id}}" dinar_db_1) $REGISTRY/$IMAGE_DB
-docker commit $(docker inspect --format="{{.Id}}" dinar_odoo_1) $REGISTRY/$IMAGE_ODOO
-
-docker push $REGISTRY/$IMAGE_DB
-docker push $REGISTRY/$IMAGE_ODOO
-
-docker-compose -p DINAR -f $DIR/docker-compose-DINAR.yml down
+for NAME in db odoo
+do
+    CONTAINER=$(docker inspect --format="{{.Id}}" dinar_${NAME}_1)
+    docker commit $CONTAINER ${NAME}-image
+    TMP=${NAME}-image.save/
+    mkdir $TMP
+    docker save ${NAME}-image | tar -C $TMP -xf -
+    LAYER=$TMP/$(jq '.[0].Layers[-1]' $TMP/manifest.json --raw-output)
+    cp $LAYER $SHARE/${NAME}-layer.tar
+    docker diff $CONTAINER > $SHARE/${NAME}-diff.txt
+done

@@ -1,5 +1,3 @@
-# This docker-compose.yml is used to create odoo and db containers with base modules installed
-# See static-files/all/.github/workflows/DINAR.yml
 version: "2.4"
 services:
   odoo:
@@ -20,14 +18,17 @@ services:
     tty: true
     depends_on:
       - db
-    command:
-      - odoo
-      - --limit-memory-soft=0
-      - --limit-time-real-cron=9999999
-      - --limit-time-real=9999999
-      - --workers=0
-      - --init=$MODULES
-      - --stop-after-init
+    labels:
+      - "dinar.odoo.modules=$MODULES"
+    command: >
+      odoo
+      --limit-memory-soft=0
+      --limit-time-real-cron=9999999
+      --limit-time-real=9999999
+      --workers=0
+      --init=$MODULES
+      --stop-after-init
+
   db:
     image: itpp/postgres-autoconf:${DB_VERSION}-alpine
     shm_size: 512mb

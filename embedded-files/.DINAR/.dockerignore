@@ -1,5 +1,4 @@
 image/src/*
 !image/src/private
 !image/src/*.*
-volumes/*
 config.yaml
