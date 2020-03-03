@@ -1,0 +1,43 @@
+version: "2.4"
+services:
+  odoo:
+    image: $REGISTRY/$IMAGE_ODOO
+    environment:
+      PGDATABASE: &dbname DINAR
+      PGUSER: &dbuser "odoo"
+      DB_FILTER: ".*"
+      PROXY_MODE: "$ODOO_PROXY_MODE"
+      LIST_DB: "true"
+      PTVSD_ENABLE: "${DOODBA_PTVSD_ENABLE:-0}"
+      PYTHONOPTIMIZE: ""
+      PYTHONPATH: /opt/odoo/custom/src/odoo
+      SMTP_PORT: "1025"
+      WITHOUT_DEMO: "${DOODBA_WITHOUT_DEMO-false}"
+      WAIT_DB: "true"
+    hostname: "$SMTP_REAL_NON_CANONICAL_DEFAULT"
+    tty: true
+    depends_on:
+      - db
+    volumes:
+      - ../../REPO:/opt/odoo/custom/src/private/
+    labels:
+      - "dinar.odoo.modules.extra=$MODULES"
+    command: >
+      odoo
+      --limit-memory-soft=0
+      --limit-time-real-cron=9999999
+      --limit-time-real=9999999
+      --workers=0
+      --init=$MODULES
+      --load=$LOAD_MODULES
+      --stop-after-init
+      $ODOO_EXTRA_ARG
+  db:
+    image: $REGISTRY/$IMAGE_DB
+    shm_size: 512mb
+    environment:
+      POSTGRES_DB: *dbname
+      POSTGRES_USER: *dbuser
+      POSTGRES_PASSWORD: odoopassword
+      CONF_EXTRA: |
+        work_mem = 32MB
