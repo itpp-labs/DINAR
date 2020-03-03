@@ -5,9 +5,9 @@ branches:
   - "13.0"
 
 repos:
-  it-projects-llc/misc-addons:
-  it-projects-llc/pos-addons:
-  it-projects-llc/website-addons:
-  it-projects-llc/mail-addons:
-  it-projects-llc/access-addons:
-  it-projects-llc/sync-addons:
+  itpp-labs/misc-addons:
+  itpp-labs/pos-addons:
+  itpp-labs/website-addons:
+  itpp-labs/mail-addons:
+  itpp-labs/access-addons:
+  itpp-labs/sync-addons:
