@@ -26,6 +26,6 @@ echo "::set-env name=REGISTRY_USERNAME::${REGISTRY_USERNAME}"
 echo "::set-env name=REGISTRY_PASSWORD::${REGISTRY_PASSWORD}"
 
 # authenticate
-if [ -z "$REGISTRY_PASSWORD" ]; then
+if [ ! -z "$REGISTRY_PASSWORD" ]; then
     echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USERNAME" --password-stdin "$REGISTRY"
 fi
