@@ -1,0 +1,31 @@
+name: "Check updates in DINAR"
+
+on:
+  # Check for updates every Saturday morning
+  schedule:
+    - cron: "5 5 * * 6"
+  # Check for updates when someone opened an issue
+  # Can be used as a workaround to immediatly sync with DINAR
+  issues:
+    types:
+      - opened
+      - reopened
+
+jobs:
+  DINAR2fork:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Fork
+        uses: actions/checkout@v2-beta
+      - name: Fetch DINAR
+        run: |
+          git remote add DINAR https://github.com/itpp-labs/DINAR.git
+          git fetch DINAR
+      - name: Merge DINAR
+        run: |
+          git merge DINAR/master
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: DINAR2fork
