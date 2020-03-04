@@ -17,15 +17,23 @@ jobs:
     steps:
       - name: Checkout Fork
         uses: actions/checkout@v2-beta
+        with:
+          fetch-depth: 100
       - name: Fetch DINAR
         run: |
           git remote add DINAR https://github.com/itpp-labs/DINAR.git
           git fetch DINAR
       - name: Merge DINAR
         run: |
+          # Name must be specified to make merge commit
+          git config --global user.email "itpp-bot@users.noreply.github.com"
+          git config --global user.name "Mitchell Admin"
           git merge DINAR/master
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: DINAR2fork
+          title: DINAR2fork
+          body: |
+            > Made via .github/workflows/DINAR2fork.yml
