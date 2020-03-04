@@ -8,7 +8,7 @@ on:
       - ".github/workflows/fork2repos.yml"
       - "workflow-files/fork2repos.py"
       - "static-files/**"
-      - "config.example.yml" # TODO: use config.yml
+      - "config.yml"
 
 jobs:
   upload-files:
@@ -26,5 +26,4 @@ jobs:
           pip install plumbum pyyaml
       - name: Sync DINAR files
         run: |
-          # TODO: use config.yml
-          python FORK/workflow-files/fork2repos.py FORK/config.example.yml "${{ secrets.BOT_TOKEN }}" "${{ secrets.BOT_NAME }}" "${{ secrets.BOT_EMAIL }}"
+          python FORK/workflow-files/fork2repos.py FORK/config.yml "${{ secrets.BOT_TOKEN }}" "${{ secrets.BOT_NAME }}" "${{ secrets.BOT_EMAIL }}"
