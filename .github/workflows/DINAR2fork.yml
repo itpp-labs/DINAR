@@ -38,5 +38,6 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: DINAR2fork
           title: DINAR2fork
+          commit-message: Changes made by DINAR2fork.yml
           body: |
             > Made via .github/workflows/DINAR2fork.yml
