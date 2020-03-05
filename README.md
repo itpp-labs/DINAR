@@ -6,7 +6,7 @@ DINAR helps you to configure Github Actions to test and preview Odoo addons.
 
 # Usage
 
-- Fork this repo
+- Fork [DINAR](https://github.com/itpp-labs/DINAR/)
 - [Set secrets](https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets#creating-encrypted-secrets)
 
   - `BOT_TOKEN` -- [github token](https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line) with push access to the repos
