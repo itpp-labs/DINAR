@@ -29,6 +29,9 @@ jobs:
           git config --global user.email "itpp-bot@users.noreply.github.com"
           git config --global user.name "Mitchell Admin"
           git merge DINAR/master
+      - name: Change DINAR's references to forked DINAR
+        run: |
+          find ./static-files/all/.github/workflows/ -iname "*.yml" | xargs sed -i "s;repository: itpp-labs/DINAR;repository: $GITHUB_REPOSITORY;g"
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v2
         with:
