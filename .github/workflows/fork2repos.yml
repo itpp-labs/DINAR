@@ -1,5 +1,3 @@
-# TODO: static-files/all/.github/workflows/DINAR.yml:
-# * set current revision in step "Checkout DINAR"
 name: "Push forked DINAR to Repos"
 
 on:
