@@ -11,6 +11,7 @@ on:
 jobs:
   upload-files:
     runs-on: ubuntu-latest
+    if: "github.repository != 'itpp-labs/DINAR'"
     steps:
       - name: Checkout Fork
         uses: actions/checkout@v2-beta
