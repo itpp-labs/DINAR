@@ -102,7 +102,7 @@ def action_all():
         if manifest_path:
             manifests[module_name] = manifest_path
     addons_config = get_addons_config()
-    include = addons_config.get("include", [])
+    include = addons_config.get("include", ["base"])
     exclude = addons_config.get("exclude", [])
 
     modules_data = parse_manifests(manifests)
@@ -147,9 +147,7 @@ def modules2deps(modules_data, include=None, exclude=None):
         )
     )
     return ",".join(
-        ({"base"} | set(include) | set(dependencies))
-        - set(modules_data.keys())
-        - set(exclude)
+        (set(include) | set(dependencies)) - set(modules_data.keys()) - set(exclude)
     )
 
 
