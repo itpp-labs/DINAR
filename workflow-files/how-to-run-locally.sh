@@ -15,6 +15,7 @@ To try updates execute:
     git -C pr-files fetch origin \$REVISION
     git -C pr-files checkout FETCH_HEAD
     docker-compose pull
+    export PR_FILES=./pr-files/
     export MODULES=$MODULES
     export LOAD_MODULES=$LOAD_MODULES
 EOF
