@@ -18,6 +18,7 @@ To try updates execute:
     export PR_FILES=./pr-files/
     export MODULES=$MODULES
     export LOAD_MODULES=$LOAD_MODULES
+    export ODOO_EXTRA_ARG=$ODOO_EXTRA_ARG
 EOF
 
 if [ "$VERSION" == "10.0" ]; then
