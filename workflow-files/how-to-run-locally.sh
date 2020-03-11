@@ -5,7 +5,7 @@ To try updates execute:
     mkdir -p \$WORKDIR
     cd \$WORKDIR
     curl https://raw.githubusercontent.com/$DINAR_REPO/master/workflow-files/docker-compose-DINAR-pr.yml > docker-compose.yml
-    curl https://raw.githubusercontent.com/$DINAR_REPO/DINAR/master/local-files/docker-compose.override.yml > docker-compose.override.yml
+    curl https://raw.githubusercontent.com/$DINAR_REPO/master/local-files/docker-compose.override.yml > docker-compose.override.yml
     export REGISTRY=docker.pkg.github.com REPOSITORY=$GITHUB_REPOSITORY VERSION=$VERSION IMAGE_ODOO=$IMAGE_ODOO IMAGE_DB=$IMAGE_DB
     git clone --depth=1 --branch \$VERSION git@github.com:$GITHUB_REPOSITORY pr-files
     # Version in PR
