@@ -144,6 +144,7 @@ jobs:
       - name: Configure docker
         run: |
           bash DINAR/workflow-files/configure-docker.sh ${{ secrets.DINAR_TOKEN || secrets.GITHUB_TOKEN }}
+          echo "::set-env name=PR_FILES::../../REPO"
       - name: Install python tools
         run: |
           pip install plumbum PyGithub pyyaml
@@ -239,6 +240,7 @@ jobs:
       - name: Configure Docker
         run: |
           bash DINAR/workflow-files/configure-docker.sh ${{ secrets.DINAR_TOKEN || secrets.GITHUB_TOKEN }}
+          echo "::set-env name=PR_FILES::../../REPO"
       - name: Analyze PR
         run: |
           # sets environment variables that available in next steps via $ {{ env.PR_... }} notation
