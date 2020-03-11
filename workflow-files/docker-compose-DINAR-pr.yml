@@ -19,7 +19,7 @@ services:
     depends_on:
       - db
     volumes:
-      - ../../REPO:/opt/odoo/custom/src/private/
+      - $PR_FILES:/opt/odoo/custom/src/private/
     labels:
       - "dinar.odoo.modules.extra=$MODULES"
     command: >
