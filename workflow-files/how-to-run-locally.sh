@@ -25,15 +25,6 @@ EOF
 
 if [ "$ARTIFACT" != "empty" ]; then
 
-    # get artifact URL
-    API_URL="https://api.github.com/repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/artifacts"
-    echo "API_URL=$API_URL"
-    API_RESPONSE=$(curl -s $API_URL -H "Authorization: token $GITHUB_TOKEN")
-    echo "$API_RESPONSE"
-    ARTIFACT_URL=$(echo $API_RESPONSE | \
-    jq --raw-output '.artifacts[] | select(.name == "new-deps") | .archive_download_url')
-
-
     cat << EOF
 
     # Once per device add authentication:
@@ -45,9 +36,15 @@ if [ "$ARTIFACT" != "empty" ]; then
         password $PASSWORD
 
     EOOF
-    # Check the authentication with following comman:
+    # Check the authentication with the following command:
     curl --netrc https://api.github.com/user
+    
 
+    # get artifact URL
+    API_URL="https://api.github.com/repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/artifacts"
+    API_RESPONSE=$(curl -s $API_URL)
+    ARTIFACT_URL=$(echo $API_RESPONSE | \
+    jq --raw-output '.artifacts[] | select(.name == "new-deps") | .archive_download_url')
 
     # download artifact
     curl --location --netrc $ARTIFACT_URL > new-deps.zip
