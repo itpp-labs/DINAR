@@ -1,3 +1,5 @@
+GITHUB_TOKEN=$1
+
 cat << EOF
 To try updates execute:
 
