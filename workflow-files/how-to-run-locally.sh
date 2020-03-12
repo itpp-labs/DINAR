@@ -21,6 +21,49 @@ To try updates execute:
     export ODOO_EXTRA_ARG=$ODOO_EXTRA_ARG
 EOF
 
+if [ "$ARTIFACT" != "empty" ]; then
+
+    # get artifact URL
+    API_URL="https://api.github.com/repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/artifacts"
+    echo "API_URL=$API_URL"
+    API_RESPONSE=$(curl -s $API_URL -H "Authorization: token $GITHUB_TOKEN")
+    echo "$API_RESPONSE"
+    ARTIFACT_URL=$(echo $API_RESPONSE | \
+    jq --raw-output '.artifacts[] | select(.name == "new-deps") | .archive_download_url')
+
+
+    cat << EOF
+
+    # Once per device add authentication:
+    USERNAME=YOUR_USERNAME_HERE
+    PASSWORD=YOUR_TOKEN_HERE # see https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line
+    cat <<- EOOF > $HOME/.netrc
+        machine api.github.com
+        login $USERNAME
+        password $PASSWORD
+
+    EOOF
+    # Check the authentication with following comman:
+    curl --netrc https://api.github.com/user
+
+
+    # download artifact
+    curl --location --netrc $ARTIFACT_URL > new-deps.zip
+    # unpack
+    mkdir new-deps
+    unzip new-deps.zip  -d new-deps
+    # download script
+    DINAR_REPO="itpp-labs/DINAR"
+    curl https://raw.githubusercontent.com/$DINAR_REPO/workflow-files/load-docker-layers.sh > load-docker-layers.sh
+    # apply script
+    export PROJECT_NAME=$(basename $(pwd))
+    bash load-docker-layers.sh new-deps/
+
+EOF
+
+fi
+
+
 if [ "$VERSION" == "10.0" ]; then
 cat << 'EOF'
 
