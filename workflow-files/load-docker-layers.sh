@@ -13,10 +13,11 @@
 # limitations under the License.
 set -ex
 SHARE=$1
+PROJECT_NAME=${PROJECT_NAME:-dinar}
 
 for NAME in db odoo
 do
-    CONTAINER=dinar_${NAME}_1
+    CONTAINER=${PROJECT_NAME}_${NAME}_1
     LAYER=$SHARE/${NAME}-layer.tar
     DIFF_FILE=$SHARE/${NAME}-diff.txt
     LAYER_FILES=${NAME}-layer/

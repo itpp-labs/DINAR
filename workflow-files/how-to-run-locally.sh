@@ -41,7 +41,7 @@ if [ "$ARTIFACT" != "empty" ]; then
     # Check the authentication with the following command:
     curl --netrc https://api.github.com/user
     # (If it doesn't work check your ~/.netrc file)
-    
+
 
     # get artifact URL
     API_URL="https://api.github.com/repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/artifacts"
