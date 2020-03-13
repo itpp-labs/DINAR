@@ -27,17 +27,20 @@ if [ "$ARTIFACT" != "empty" ]; then
 
     cat << EOF
 
-    # Once per device add authentication:
+    # Once per device:
     USERNAME=YOUR_USERNAME_HERE
     PASSWORD=YOUR_TOKEN_HERE # see https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line
-    cat <<- EOOF > \$HOME/.netrc
+
+    (test ! -f \$HOME/.netrc || test ! -z "$(grep -L 'api.github.com' \$HOME/.netrc)" ) && cat <<- EOOF >> \$HOME/.netrc
         machine api.github.com
         login \$USERNAME
         password \$PASSWORD
 
     EOOF
+    chmod 600 \$HOME/.netrc
     # Check the authentication with the following command:
     curl --netrc https://api.github.com/user
+    # (If it doesn't work check your ~/.netrc file)
     
 
     # get artifact URL
