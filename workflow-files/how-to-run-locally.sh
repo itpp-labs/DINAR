@@ -30,10 +30,10 @@ if [ "$ARTIFACT" != "empty" ]; then
     # Once per device add authentication:
     USERNAME=YOUR_USERNAME_HERE
     PASSWORD=YOUR_TOKEN_HERE # see https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line
-    cat <<- EOOF > $HOME/.netrc
+    cat <<- EOOF > \$HOME/.netrc
         machine api.github.com
-        login $USERNAME
-        password $PASSWORD
+        login \$USERNAME
+        password \$PASSWORD
 
     EOOF
     # Check the authentication with the following command:
