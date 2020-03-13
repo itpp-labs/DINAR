@@ -42,8 +42,8 @@ if [ "$ARTIFACT" != "empty" ]; then
 
     # get artifact URL
     API_URL="https://api.github.com/repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/artifacts"
-    API_RESPONSE=$(curl -s $API_URL)
-    ARTIFACT_URL=$(echo $API_RESPONSE | \
+    API_RESPONSE=\$(curl -s $API_URL)
+    ARTIFACT_URL=\$(echo $API_RESPONSE | \
     jq --raw-output '.artifacts[] | select(.name == "new-deps") | .archive_download_url')
 
     # download artifact
