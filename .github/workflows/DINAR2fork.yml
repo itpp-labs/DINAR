@@ -33,7 +33,7 @@ jobs:
       - name: Change DINAR's references to forked DINAR
         run: |
           find ./static-files/all/.github/workflows/ -iname "*.yml" | xargs sed -i "s;repository: itpp-labs/DINAR$;repository: $GITHUB_REPOSITORY;g"
-          find ./static-files/all/.github/workflows/ -iname "*.yml" | xargs sed -i "s;DINAR_REPO=\"itpp-labs/DINAR\";DINAR_REPO=\"$GITHUB_REPOSITORY\"/;g"
+          find ./static-files/all/.github/workflows/ -iname "*.yml" | xargs sed -i "s;DINAR_REPO=\"itpp-labs/DINAR\";DINAR_REPO=\"$GITHUB_REPOSITORY\";g"
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v2
         with:
