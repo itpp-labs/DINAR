@@ -46,4 +46,4 @@ DINAR builds and push docker images to Github Packages. Examples for 12.0 branch
 - Odoo and postgres images with preinstalled modules specified in manifest's `depends` attribute plus modules listed in `addons.include` attribute of [`.DINAR/config.yaml`](editable-files/.DINAR/config.yaml).
 
   - `dinar-odoo-repo-name:12.0`, `dinar-db-repo-name:12.0` -- modules are installed with demo data
-  - `dinar-odoo-repo-name:12.0-nodemo`, `dinar-db-nodemo-repo-name:12.0-nodemo` -- modules are installed without demo data
+  - `dinar-odoo-repo-name:12.0-nodemo`, `dinar-db-repo-name:12.0-nodemo` -- modules are installed without demo data
