@@ -74,7 +74,7 @@ jobs:
           CLEAN: false
           COMPILE: false
         with:
-          name: ${{ env.IMAGE_ODOO_BASE }}
+          name: ${{ env.IMAGE_ODOO }}-base
           registry: ${{ env.REGISTRY }}
           username: ${{ env.REGISTRY_USERNAME }}
           password: ${{ env.REGISTRY_PASSWORD }}
