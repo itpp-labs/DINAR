@@ -7,7 +7,7 @@ on:
       - "workflow-files/fork2repos.py"
       - "static-files/**"
       - "config.yml"
-    branches:    
+    branches:
       - master
 
 jobs:
