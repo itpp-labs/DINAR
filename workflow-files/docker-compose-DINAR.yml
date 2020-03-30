@@ -1,7 +1,7 @@
 version: "2.4"
 services:
   odoo:
-    image: $REGISTRY/$IMAGE_ODOO-base
+    image: $REGISTRY/$IMAGE_ODOO_BASE
     environment:
       PGDATABASE: &dbname DINAR
       PGUSER: &dbuser "odoo"
