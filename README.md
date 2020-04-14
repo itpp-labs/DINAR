@@ -23,7 +23,7 @@ DINAR helps you to configure Github Actions to test and preview Odoo addons.
 
 # Repository structure
 
-- `.github/workflows/':
+- `.github/workflows/`:
 
   - [`DINAR2fork.yml`](.github/workflows/DINAR2fork.yml) -- checks for updates in DINAR and makes PR to your fork
   - [`fork2repos.yml`](.github/workflows/fork2repos.yml) -- Github Workflow to install forked DINAR to your repositories
