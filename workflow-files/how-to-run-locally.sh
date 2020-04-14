@@ -55,7 +55,7 @@ if [ "$ARTIFACT" != "empty" ]; then
     mkdir new-deps
     unzip new-deps.zip  -d new-deps
     # download script
-    DINAR_REPO="itpp-labs/DINAR"
+    DINAR_REPO="$DINAR_REPO"
     curl https://raw.githubusercontent.com/\$DINAR_REPO/master/workflow-files/load-docker-layers.sh > load-docker-layers.sh
     # apply script
     export PROJECT_NAME=\$(basename \$(pwd))
