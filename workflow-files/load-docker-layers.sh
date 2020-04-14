@@ -24,12 +24,11 @@ do
     mkdir -p $LAYER_FILES
     tar -C $LAYER_FILES -xf $LAYER
     if grep "^D " ${DIFF_FILE}; then
+        # TODO: remove files before the container is started. 
+        # It can be done with adding additional entrypoint script, which check env variable to delete file.
+        # Otherwise postges files can be inconsistent
         docker start $CONTAINER
-        for name in $(awk -F' ' '{if ($1 == "D") print $2; }' ${DIFF_FILE})
-        do
-            echo "rm -rf $CONTAINER:$name"
-            docker exec $CONTAINER rm -rf $name
-        done
+        docker exec $CONTAINER rm -rfv $(awk -F' ' '{if ($1 == "D") print $2; }' ${DIFF_FILE})
         docker stop $CONTAINER
     fi
     # "docker cp -a" doesn't work due to this bug https://github.com/moby/moby/issues/34142
