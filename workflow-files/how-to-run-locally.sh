@@ -1,7 +1,28 @@
 GITHUB_TOKEN=$1
 
 cat << EOF
-To try updates execute:
+
+# Once per device make access token with "read:packages" access
+# https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line
+
+    USERNAME=YOUR_USERNAME_HERE
+    TOKEN=YOUR_TOKEN_HERE
+    # Authentication for docker packages access ("docker pull" command):
+    docker login docker.pkg.github.com -u USERNAME -p TOKEN 
+
+    # Authentication for api access (it's used to get artifact url)
+    (test ! -f \$HOME/.netrc || test ! -z "\$(grep -L 'api.github.com' \$HOME/.netrc)" ) && cat <<- EOOF >> \$HOME/.netrc
+        machine api.github.com
+        login \$USERNAME
+        password \$TOKEN
+
+    EOOF
+    chmod 600 \$HOME/.netrc
+    # Check the authentication with the following command:
+    curl --netrc https://api.github.com/user
+    # (If it doesn't work check your ~/.netrc file)
+
+# To try updates execute:
 
     WORKDIR=/tmp/DINAR/$GITHUB_REPOSITORY-$PR_NUM/
     mkdir -p \$WORKDIR
@@ -26,22 +47,6 @@ EOF
 if [ "$ARTIFACT" != "empty" ]; then
 
     cat << EOF
-
-    # Once per device:
-    USERNAME=YOUR_USERNAME_HERE
-    PASSWORD=YOUR_TOKEN_HERE # see https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line
-
-    (test ! -f \$HOME/.netrc || test ! -z "\$(grep -L 'api.github.com' \$HOME/.netrc)" ) && cat <<- EOOF >> \$HOME/.netrc
-        machine api.github.com
-        login \$USERNAME
-        password \$PASSWORD
-
-    EOOF
-    chmod 600 \$HOME/.netrc
-    # Check the authentication with the following command:
-    curl --netrc https://api.github.com/user
-    # (If it doesn't work check your ~/.netrc file)
-
 
     # get artifact URL
     API_URL="https://api.github.com/repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/artifacts"
