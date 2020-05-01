@@ -69,7 +69,6 @@ jobs:
         run: |
           bash DINAR/workflow-files/configure-docker.sh ${{ secrets.DINAR_TOKEN || secrets.GITHUB_TOKEN }}
           echo "::set-env name=PR_FILES::../../REPO"
-          echo "::set-env name=ARTIFACT::empty"
       - name: HOW TO RUN ODOO LOCALLY
         if: always()
         run: |
