@@ -61,14 +61,11 @@ def addons_config(repo, url=None, branch=None):
     ENV = "ENV:\n" if pattern_line or branch_line else ""
     return """
 ---
-%s%s%s
-%s:
+{}{}{}
+{}:
   - "*"
-""" % (
-        ENV,
-        pattern_line,
-        branch_line,
-        repo,
+""".format(
+        ENV, pattern_line, branch_line, repo
     )
 
 
