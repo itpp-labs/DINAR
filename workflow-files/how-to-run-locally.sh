@@ -8,7 +8,7 @@ cat << EOF
     USERNAME=YOUR_USERNAME_HERE
     TOKEN=YOUR_TOKEN_HERE
     # Authentication for docker packages access ("docker pull" command):
-    docker login docker.pkg.github.com -u USERNAME -p TOKEN 
+    docker login docker.pkg.github.com -u USERNAME -p TOKEN
 
     # Authentication for api access (it's used to get artifact url)
     (test ! -f \$HOME/.netrc || test ! -z "\$(grep -L 'api.github.com' \$HOME/.netrc)" ) && cat <<- EOOF >> \$HOME/.netrc

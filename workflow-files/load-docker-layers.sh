@@ -24,7 +24,7 @@ do
     mkdir -p $LAYER_FILES
     tar -C $LAYER_FILES -xf $LAYER
     if grep "^D " ${DIFF_FILE}; then
-        # TODO: remove files before the container is started. 
+        # TODO: remove files before the container is started.
         # It can be done with adding additional entrypoint script, which check env variable to delete file.
         # Otherwise postges files can be inconsistent
         docker start $CONTAINER
