@@ -27,6 +27,7 @@ except ImportError:
 MANIFESTS = ["__manifest__.py", "__openerp__.py"]
 # https://odoo-development.readthedocs.io/en/latest/admin/server_wide_modules.html
 DEFAULT_SERVER_WIDE_MODULES = {
+    "14.0": ["base", "web"],
     "13.0": ["base", "web"],
     "12.0": ["base", "web"],
     "11.0": ["web"],
