@@ -1,2 +1,2 @@
 ARG ODOO_VERSION
-FROM itpp/doodba:${ODOO_VERSION}-onbuild
+FROM docker.pkg.github.com/itpp-labs/doodba/doodba:${ODOO_VERSION}-onbuild
