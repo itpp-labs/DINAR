@@ -15,15 +15,15 @@ REGISTRY_PASSWORD="$1"
 ODOO_VERSION="$(echo $BRANCH | python $DIR/branch2odoo_version.py)"
 echo "ODOO_VERSION=$ODOO_VERSION"
 
-echo "::set-env name=DB_VERSION::10"
-echo "::set-env name=ODOO_VERSION::$ODOO_VERSION"
-echo "::set-env name=IMAGE_CODE::$IMAGE_CODE"
-echo "::set-env name=IMAGE_DB::$IMAGE_DB"
-echo "::set-env name=IMAGE_ODOO::$IMAGE_ODOO"
-echo "::set-env name=IMAGE_ODOO_BASE::$IMAGE_ODOO_BASE"
-echo "::set-env name=REGISTRY::${REGISTRY}"
-echo "::set-env name=REGISTRY_USERNAME::${REGISTRY_USERNAME}"
-echo "::set-env name=REGISTRY_PASSWORD::${REGISTRY_PASSWORD}"
+echo "DB_VERSION=10" >> $GITHUB_ENV
+echo "ODOO_VERSION=$ODOO_VERSION" >> $GITHUB_ENV
+echo "IMAGE_CODE=$IMAGE_CODE" >> $GITHUB_ENV
+echo "IMAGE_DB=$IMAGE_DB" >> $GITHUB_ENV
+echo "IMAGE_ODOO=$IMAGE_ODOO" >> $GITHUB_ENV
+echo "IMAGE_ODOO_BASE=$IMAGE_ODOO_BASE" >> $GITHUB_ENV
+echo "REGISTRY=${REGISTRY}" >> $GITHUB_ENV
+echo "REGISTRY_USERNAME=${REGISTRY_USERNAME}" >> $GITHUB_ENV
+echo "REGISTRY_PASSWORD=${REGISTRY_PASSWORD}" >> $GITHUB_ENV
 
 # authenticate
 if [ ! -z "$REGISTRY_PASSWORD" ]; then
