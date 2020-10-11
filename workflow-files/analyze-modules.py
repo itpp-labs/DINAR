@@ -17,7 +17,7 @@ import os.path
 import sys
 
 import yaml
-from plumbum.cmd import cat
+from plumbum.cmd import cat, echo
 
 try:
     from github import Github
@@ -168,8 +168,9 @@ def cmd(command):
 
 
 def set_github_var(name, value):
-    print("{}={}".format(name, value))
-    print("::set-env name={}::{}".format(name, value))
+    s = "{}={}".format(name, value)
+    print(s)
+    (echo[s] >> os.environ.get("GITHUB_ENV"))()
 
 
 if __name__ == "__main__":
