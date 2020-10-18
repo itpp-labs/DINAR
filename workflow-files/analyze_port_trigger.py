@@ -19,7 +19,7 @@ analyze_modules = importlib.import_module("analyze-modules")
 set_github_var = analyze_modules.set_github_var
 
 # TODO: make a python package, say dinarlib, to use local imports
-from oca_dependencies2configs import ODOO_VERSIONS, branch2version
+from branch2odoo_version import ODOO_VERSIONS, branch2version
 
 def get_prev_version(version):
     return ODOO_VERSIONS[ODOO_VERSIONS.index(version) + 1]
