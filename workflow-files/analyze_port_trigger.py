@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 import os
+import sys
 
 # TODO: rename analyze-modules.py file
 import importlib   
