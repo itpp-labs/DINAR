@@ -32,8 +32,8 @@ jobs:
           python-version: "3.7.x"
       - name: Check Python Version
         run:
-          echo "PY=$(python --version --version | sha256sum | cut -d' '
-          -f1)" >> $GITHUB_ENV
+          echo "PY=$(python --version --version | sha256sum | cut -d' ' -f1)" >>
+          $GITHUB_ENV
       - uses: actions/cache@v1
         with:
           path: ~/.cache/pre-commit
@@ -81,8 +81,8 @@ jobs:
           bash DINAR/workflow-files/how-to-run-locally.sh
       - name: Check Python Version
         run:
-          echo "PY=$(python --version --version | sha256sum | cut -d' '
-          -f1)" >> $GITHUB_ENV
+          echo "PY=$(python --version --version | sha256sum | cut -d' ' -f1)" >>
+          $GITHUB_ENV
       - uses: actions/cache@v1
         with:
           path: ~/.cache/pre-commit
