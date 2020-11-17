@@ -11,16 +11,16 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-import os
-import sys
-
 # TODO: rename analyze-modules.py file
-import importlib   
-analyze_modules = importlib.import_module("analyze-modules")       
-set_github_var = analyze_modules.set_github_var
+import importlib
+import sys
 
 # TODO: make a python package, say dinarlib, to use local imports
 from branch2odoo_version import ODOO_VERSIONS, branch2version
+
+analyze_modules = importlib.import_module("analyze-modules")
+set_github_var = analyze_modules.set_github_var
+
 
 TAGS = {
     "1": "one",
@@ -35,8 +35,10 @@ TAGS = {
     "0": "zero",
 }
 
+
 def get_prev_version(version):
     return ODOO_VERSIONS[ODOO_VERSIONS.index(version) + 1]
+
 
 if __name__ == "__main__":
     print(sys.argv)
