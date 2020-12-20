@@ -1,9 +1,9 @@
 ./odoo-module-migrator:
-    remotes:
-        oca: https://github.com/OCA/odoo-module-migrator.git
-        itpp-labs: https://github.com/itpp-labs/odoo-module-migrator.git
-    merges:
-        - oca master
-        #- oca refs/pull/12345/head
-        - itpp-labs change-odoo-version-only
-    target: oca master
+  remotes:
+    oca: https://github.com/OCA/odoo-module-migrator.git
+    itpp-labs: https://github.com/itpp-labs/odoo-module-migrator.git
+  merges:
+    - oca master
+    #- oca refs/pull/12345/head
+    - itpp-labs change-odoo-version-only
+  target: oca master
