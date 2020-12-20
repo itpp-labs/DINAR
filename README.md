@@ -2,7 +2,13 @@
 
 **D**INAR **I**s **N**ot **A** **R**unbot.
 
-DINAR helps you to configure Github Actions to test and preview Odoo addons.
+DINAR helps you to configure Github Actions to maintain Odoo addons.
+
+* deploy common files (e.g. pre-comming config)
+* run checks in pull requests
+* preview pull requests
+* port modules to next Odoo version
+
 
 # Usage
 
