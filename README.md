@@ -4,11 +4,10 @@
 
 DINAR helps you to configure Github Actions to maintain Odoo addons.
 
-* deploy common files (e.g. pre-comming config)
-* run checks in pull requests
-* preview pull requests
-* port modules to next Odoo version
-
+- deploy common files (e.g. pre-comming config)
+- run checks in pull requests
+- preview pull requests
+- port modules to next Odoo version
 
 # Usage
 
