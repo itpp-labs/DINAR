@@ -2,7 +2,7 @@ GITHUB_TOKEN=$1
 
 cat << EOF
 
-# Once per device make access token with "read:packages" access
+# Once per device make access token with "read:packages, repo" access
 # https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line
 
     USERNAME=YOUR_USERNAME_HERE
