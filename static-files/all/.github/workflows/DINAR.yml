@@ -109,8 +109,8 @@ jobs:
         run: |
           export MODULES=$ALL_MODULES_DEPENDENCIES
 
-          export DOODBA_WITHOUT_DEMO=all
-          bash DINAR/workflow-files/images-with-preinstalled-modules.sh $IMAGE_DB-nodemo $IMAGE_ODOO-nodemo
+          #export DOODBA_WITHOUT_DEMO=all
+          #bash DINAR/workflow-files/images-with-preinstalled-modules.sh $IMAGE_DB-nodemo $IMAGE_ODOO-nodemo
 
           export DOODBA_WITHOUT_DEMO=false
           bash DINAR/workflow-files/images-with-preinstalled-modules.sh $IMAGE_DB $IMAGE_ODOO
