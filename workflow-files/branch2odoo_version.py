@@ -2,7 +2,7 @@
 # prints odoo version to output
 import fileinput
 
-ODOO_VERSIONS = ["master", "14.0", "13.0", "12.0", "11.0", "10.0", "9.0", "8.0", "7.0"]
+ODOO_VERSIONS = ["master", "15.0", "14.0", "13.0", "12.0", "11.0", "10.0", "9.0", "8.0", "7.0"]
 
 
 def branch2version(branch):
