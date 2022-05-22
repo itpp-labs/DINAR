@@ -30,7 +30,7 @@ services:
       --stop-after-init
 
   db:
-    image: docker.pkg.github.com/itpp-labs/docker-postgres-autoconf/postgres-autoconf:${DB_VERSION}-alpine
+    image: ghcr.io/itpp-labs/docker-postgres-autoconf:${DB_VERSION}-alpine
     shm_size: 512mb
     environment:
       POSTGRES_DB: *dbname
