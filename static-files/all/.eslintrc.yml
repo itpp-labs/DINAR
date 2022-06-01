@@ -152,7 +152,7 @@ rules:
   require-yield: warn
   sort-imports: warn
   spaced-comment: [error, always]
-  space-before-function-paren: ["warn", {"anonymous": "always", "named": "never"}]
+  space-before-function-paren: ["warn", { "anonymous": "always", "named": "never" }]
   strict: [error, function]
   use-isnan: error
   valid-jsdoc:
