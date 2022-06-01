@@ -1,5 +1,6 @@
 env:
   browser: true
+  sourceType: module
 
 # See https://github.com/OCA/odoo-community.org/issues/37#issuecomment-470686449
 parserOptions:
