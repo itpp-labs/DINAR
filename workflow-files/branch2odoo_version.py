@@ -4,6 +4,7 @@ import fileinput
 
 ODOO_VERSIONS = [
     "master",
+    "16.0",
     "15.0",
     "14.0",
     "13.0",
