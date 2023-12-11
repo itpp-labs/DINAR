@@ -5,5 +5,5 @@
   merges:
     - oca master
     #- oca refs/pull/12345/head
-    - itpp-labs change-odoo-version-only
+    - itpp-labs change-odoo-version-only-2024
   target: oca master
