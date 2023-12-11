@@ -101,8 +101,9 @@ def sync_repo(repo, br, bot_token):
     cmd(git["-C", repo_path, "add", "--all"])
     try:
         cmd(git["-C", repo_path, "commit", "-m", COMMIT_MESSAGE])
-    except Exception:
-        # nothing to commit
+    except Exception as e:
+        # nothing to commit (?)
+        print(e)
         return
     cmd(git["-C", repo_path, "push"])
 
