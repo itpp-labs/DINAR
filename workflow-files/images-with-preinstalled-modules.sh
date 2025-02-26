@@ -15,8 +15,8 @@ set -ex
 DIR="`dirname \"$0\"`"
 IMAGE_DB=$1
 IMAGE_ODOO=$2
-docker compose -p DINAR -f $DIR/docker-compose-DINAR.yml config
-docker compose -p DINAR -f $DIR/docker-compose-DINAR.yml up --abort-on-container-exit
+docker compose -p dinar -f $DIR/docker-compose-DINAR.yml config
+docker compose -p dinar -f $DIR/docker-compose-DINAR.yml up --abort-on-container-exit
 
 docker commit $(docker inspect --format="{{.Id}}" dinar_db_1) $REGISTRY/$IMAGE_DB
 docker commit $(docker inspect --format="{{.Id}}" dinar_odoo_1) $REGISTRY/$IMAGE_ODOO
@@ -24,4 +24,4 @@ docker commit $(docker inspect --format="{{.Id}}" dinar_odoo_1) $REGISTRY/$IMAGE
 docker push $REGISTRY/$IMAGE_DB
 docker push $REGISTRY/$IMAGE_ODOO
 
-docker compose -p DINAR -f $DIR/docker-compose-DINAR.yml down
+docker compose -p dinar -f $DIR/docker-compose-DINAR.yml down
