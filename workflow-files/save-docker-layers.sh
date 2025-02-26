@@ -17,7 +17,7 @@ mkdir -p $SHARE
 
 for NAME in db odoo
 do
-    CONTAINER=$(docker inspect --format="{{.Id}}" dinar_${NAME}_1)
+    CONTAINER=$(docker inspect --format="{{.Id}}" dinar-${NAME}-1)
     docker commit $CONTAINER ${NAME}-image
     TMP=${NAME}-image.save/
     mkdir $TMP
