@@ -18,9 +18,8 @@ IMAGE_ODOO=$2
 docker compose -p dinar -f $DIR/docker-compose-DINAR.yml config
 docker compose -p dinar -f $DIR/docker-compose-DINAR.yml up --abort-on-container-exit
 
-docker ps --format "table {{.Names}}\t{{.ID}}" | grep dinar
-docker commit $(docker inspect --format="{{.Id}}" dinar_db) $REGISTRY/$IMAGE_DB
-docker commit $(docker inspect --format="{{.Id}}" dinar_odoo) $REGISTRY/$IMAGE_ODOO
+docker commit $(docker inspect --format="{{.Id}}" dinar-db-1) $REGISTRY/$IMAGE_DB
+docker commit $(docker inspect --format="{{.Id}}" dinar-odoo-1) $REGISTRY/$IMAGE_ODOO
 
 docker push $REGISTRY/$IMAGE_DB
 docker push $REGISTRY/$IMAGE_ODOO
