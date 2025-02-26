@@ -17,7 +17,7 @@ PROJECT_NAME=${PROJECT_NAME:-dinar}
 
 for NAME in db odoo
 do
-    CONTAINER=${PROJECT_NAME}_${NAME}_1
+    CONTAINER=${PROJECT_NAME}-${NAME}-1
     LAYER=$SHARE/${NAME}-layer.tar
     DIFF_FILE=$SHARE/${NAME}-diff.txt
     LAYER_FILES=${NAME}-layer/
