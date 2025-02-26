@@ -37,7 +37,7 @@ cat << EOF
     REVISION=pull/$PR_NUM/merge
     git -C pr-files fetch origin \$REVISION
     git -C pr-files checkout FETCH_HEAD
-    docker-compose pull
+    docker compose pull
     export PR_FILES=./pr-files/
     export MODULES=$MODULES
     export LOAD_MODULES=$LOAD_MODULES
@@ -64,14 +64,14 @@ if [ "$ARTIFACT" != "empty" ]; then
     curl https://raw.githubusercontent.com/\$DINAR_REPO/master/workflow-files/load-docker-layers.sh > load-docker-layers.sh
     # apply script
     export PROJECT_NAME=\$(basename \$(pwd))
-    docker-compose up --no-start
+    docker compose up --no-start
     bash load-docker-layers.sh new-deps/
 
 EOF
 else
 
 cat << 'EOF'
-    docker-compose up --no-start
+    docker compose up --no-start
 EOF
 
 fi
@@ -81,8 +81,8 @@ if [ "$VERSION" == "10.0" ]; then
 cat << 'EOF'
 
     # workaround for odoo 10.0
-    docker-compose start odoo
-    docker-compose exec odoo click-odoo -i
+    docker compose start odoo
+    docker compose exec odoo click-odoo -i
     # EXEC:
     # env['ir.module.module'].update_list()
     # env.cr.commit()
@@ -93,5 +93,5 @@ EOF
 fi
 
 cat << 'EOF'
-    docker-compose start && docker-compose logs --follow odoo
+    docker compose start && docker compose logs --follow odoo
 EOF
