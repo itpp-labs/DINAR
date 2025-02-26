@@ -1,4 +1,4 @@
-# Copyright 2020 IT Projects Labs
+# Copyright 2020,2025 IT Projects Labs
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,8 +18,9 @@ IMAGE_ODOO=$2
 docker compose -p dinar -f $DIR/docker-compose-DINAR.yml config
 docker compose -p dinar -f $DIR/docker-compose-DINAR.yml up --abort-on-container-exit
 
-docker commit $(docker inspect --format="{{.Id}}" dinar_db_1) $REGISTRY/$IMAGE_DB
-docker commit $(docker inspect --format="{{.Id}}" dinar_odoo_1) $REGISTRY/$IMAGE_ODOO
+docker ps --format "table {{.Names}}\t{{.ID}}" | grep dinar
+docker commit $(docker inspect --format="{{.Id}}" dinar_db) $REGISTRY/$IMAGE_DB
+docker commit $(docker inspect --format="{{.Id}}" dinar_odoo) $REGISTRY/$IMAGE_ODOO
 
 docker push $REGISTRY/$IMAGE_DB
 docker push $REGISTRY/$IMAGE_ODOO
